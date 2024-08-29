@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy.member.login.service;
 
 import com.toyproject2_5.musinsatoy.member.join.repository.AdminBrandDao;
@@ -88,4 +89,7 @@ public class LoginService {
         return null;
     }
 
+=======
+package com.toyproject2_5.musinsatoy.member.login.service;public class LoginService {
+>>>>>>> Stashed changes
 }

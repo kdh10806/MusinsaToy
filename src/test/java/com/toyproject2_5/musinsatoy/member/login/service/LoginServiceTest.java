@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy.member.login.service;
 
 import com.toyproject2_5.musinsatoy.member.join.dto.AdminBrandDto;
@@ -202,4 +203,9 @@ class LoginServiceTest {
         assertEquals("B", map.get("isAdmin"));
         assertEquals("CHANEL", map.get("brand"));
     }
+=======
+import static org.junit.jupiter.api.Assertions.*;
+class LoginServiceTest {
+  
+>>>>>>> Stashed changes
 }

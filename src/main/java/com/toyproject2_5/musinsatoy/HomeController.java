@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,4 +23,7 @@ public class HomeController { // 원격 프로그램
         session.invalidate(); // 세션 무효화
         return "redirect:/"; // 로그아웃 후 홈으로 리다이렉트
     }
+=======
+package com.toyproject2_5.musinsatoy;public class HomeController {
+>>>>>>> Stashed changes
 }

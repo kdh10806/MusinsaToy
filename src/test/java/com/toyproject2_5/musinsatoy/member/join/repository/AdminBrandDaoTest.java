@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy.member.join.repository;
 
 import com.toyproject2_5.musinsatoy.member.join.dto.AdminBrandDto;
@@ -44,4 +45,9 @@ class AdminBrandDaoTest {
         assertEquals(adminBrandDto.getBrand_code(), adminBrandDao.selectAdminBrand(adminBrandDto.getId()).getBrand_code());
     }
 
+=======
+import static org.junit.jupiter.api.Assertions.*;
+class AdminBrandDaoTest {
+  
+>>>>>>> Stashed changes
 }

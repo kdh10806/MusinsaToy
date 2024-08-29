@@ -3,6 +3,7 @@ package com.toyproject2_5.musinsatoy.member.login.repository;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+<<<<<<< Updated upstream
 import java.util.Map;
 
 @Mapper
@@ -15,5 +16,10 @@ public interface LoginDao {
     void updateLoginCnt(String id); // 회원 로그인 횟수 1 증가
     void initMemInfo(String id);    // 회원 정보 초기화(로그인 카운트 0, 상태 코드 40001)
 
+=======
+@Mapper
+public interface LoginDao {
+    String selectStateCode(String id);  // 회원 상태 코드 조회
+>>>>>>> Stashed changes
 
 }

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy.member.login.controller;
 
 import com.toyproject2_5.musinsatoy.member.join.dto.AdminBrandDto;
@@ -49,4 +50,7 @@ public class LoginController {
         }
 
     }
+=======
+package com.toyproject2_5.musinsatoy.member.login.controller;public class LoginController {
+>>>>>>> Stashed changes
 }

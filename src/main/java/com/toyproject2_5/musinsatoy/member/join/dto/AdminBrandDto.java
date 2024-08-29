@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy.member.join.dto;
 
 public class AdminBrandDto {
@@ -32,4 +33,7 @@ public class AdminBrandDto {
                 ", brand_code='" + brand_code + '\'' +
                 '}';
     }
+=======
+package com.toyproject2_5.musinsatoy.member.join.dto;public class AdminDto {
+>>>>>>> Stashed changes
 }

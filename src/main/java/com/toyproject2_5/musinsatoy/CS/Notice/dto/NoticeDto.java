@@ -8,15 +8,15 @@ public class NoticeDto {
     private String  notice_content;     //공지내용
     private String  create_datetime;    //공지작성일 - dateform을 쓰려면 String
     private String  modify_datetime;    //공지수정일
-    private Integer writer;             //공지작성자
-    private Integer modifier;           //공지수정자
+    private String writer;             //공지작성자
+    private String modifier;           //공지수정자
     private String  is_top_post;        //상단게시여부
     private String  is_post;            //게시여부
 
     //Constructor
     public NoticeDto(){}
     //create용 생성자
-    public NoticeDto(String notice_title, String notice_content, Integer writer, String is_top_post, String is_post) {
+    public NoticeDto(String notice_title, String notice_content, String writer, String is_top_post, String is_post) {
         this.notice_title = notice_title;
         this.notice_content = notice_content;
         this.writer = writer;
@@ -24,7 +24,7 @@ public class NoticeDto {
         this.is_post = is_post;
     }
     //modify용 생성자 -
-    public NoticeDto(Long notice_id, String notice_title, String notice_content, String modify_datetime, Integer modifier, String is_top_post, String is_post) {
+    public NoticeDto(Long notice_id, String notice_title, String notice_content, String modify_datetime, String modifier, String is_top_post, String is_post) {
         this.notice_id = notice_id;
         this.notice_title = notice_title;
         this.notice_content = notice_content;
@@ -34,7 +34,7 @@ public class NoticeDto {
         this.is_post = is_post;
     }
     //select용 생성자
-    public NoticeDto(Long notice_id, String notice_title, String notice_content, String create_datetime, String modify_datetime, Integer writer, Integer modifier, String is_top_post, String is_post) {
+    public NoticeDto(Long notice_id, String notice_title, String notice_content, String create_datetime, String modify_datetime, String writer, String modifier, String is_top_post, String is_post) {
         this.notice_id = notice_id;
         this.notice_title = notice_title;
         this.notice_content = notice_content;
@@ -67,11 +67,11 @@ public class NoticeDto {
         return modify_datetime;
     }
 
-    public Integer getWriter() {
+    public String getWriter() {
         return writer;
     }
 
-    public Integer getModifier() {
+    public String getModifier() {
         return modifier;
     }
 
@@ -104,11 +104,11 @@ public class NoticeDto {
         this.modify_datetime = modify_datetime;
     }
 
-    public void setWriter(Integer writer) {
+    public void setWriter(String writer) {
         this.writer = writer;
     }
 
-    public void setModifier(Integer modifier) {
+    public void setModifier(String modifier) {
         this.modifier = modifier;
     }
 

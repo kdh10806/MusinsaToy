@@ -12,7 +12,7 @@
 </script>
 <form action="/cs/notice/insert" method="post">
     제목 : <input type="text" name="notice_title" th:value="${noticeDto != null ? noticeDto.notice_title : ''}"><br>
-    작성자 : <input type="text" name="writer" th:value="${noticeDto != null ? noticeDto.writer : ''}"><br>
+    작성자 : <input type="text" name="writer" th:value="${member_Id}" readonly><br>
     내용 : <textarea name="notice_content" cols="30" rows="10" th:text="${noticeDto != null ? noticeDto.notice_content : ''}"></textarea><br>
     공지 상단 고정 :
     <input type="radio" name="is_top_post" value="Y"> Y

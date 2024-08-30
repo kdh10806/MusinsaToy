@@ -5,19 +5,22 @@ import com.toyproject2_5.musinsatoy.CS.Notice.dto.NoticeDto;
 import com.toyproject2_5.musinsatoy.CS.Notice.service.NoticeService;
 import com.toyproject2_5.musinsatoy.ETC.CSPageHandler;
 import com.toyproject2_5.musinsatoy.Validator.CSDtoCheck;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//TODO
-//1. 로그인 기능 추가되면 id여부, admin여부 - role=의 attribute를 session에서 가져온다.
-
+//TODO - admin 판별 부분이 겹치는 것이 많다. 밖으로 빼보자
 
 @Controller
 @RequestMapping("/cs/notice")
@@ -27,49 +30,55 @@ public class NoticeController {
 
     //1.입력화면(get, insert)
     @GetMapping("/insert")
-    public String insert(RedirectAttributes rattr){
+    public String insert(HttpSession session, Model model, RedirectAttributes rattr){
         try{
-            //TODO: 관리자 validation - 매개변수에 미리 구현해놓기(가짜값으로라도 해놓기)
-            //관리자 판별 validation
-            //1) session이 있는지, session에서 is_admin값이 있는지, is_admin의 값이 Y인지 확인
-            //2) 아니면 예외 발생하고 list로 redirect
-            //3) 맞으면 model에 member_number 저장하고 insert.html
-//            HttpSession session = request.getSession(false);
-//            if(!(session!= null && session.getAttribute("is_admin") != null && session.getAttribute("is_admin").equals("Y"))){
-//                System.out.println ("ADMIN X");
-//            } else{
-//                System.out.println("ADMIN CHECKED");
-//
-//            }
-//            if(!(is_admin.equals("Y"))) throw new Exception("Not Authorized");
-//            if(AdminCheck.adminCheck(request) != true) throw new Exception("Not Authorized");
-            //1)session에서 is_admin 값이 Y인지 판별한다.
-//            String is_admin = (String)session.getAttribute("is_admin");
-//            Integer member_number = (Integer)session.getAttribute("memeber_number");
-//            System.out.println("is_admin = " + is_admin);
-//            System.out.println("member_number = " + member_number);
-            //2)아니면 예외 발생
-            //3)맞으면 model에 memeber_number 저장하고 insert.html
-//            m.addAttribute("member_number", member_number);
+            //1) 로그인 유무 판별
+            if(session.getAttribute("id") == null) {
+                rattr.addFlashAttribute("msg", "Not Signed In");
+                return "redirect:/member/login";
+            }
+            //2) session에서 is_admin "A"인지 판별
+            if(!(session.getAttribute("isAdmin").equals("A"))){
+                rattr.addFlashAttribute("msg", "NOT_ADMIN");
+                return "redirect:/cs/notice/list";
+            }
+
+            //3) session에서 id 가져와서 저장
+            String member_Id = (String)session.getAttribute("id");
+
+            //4) model에 id 담기
+            model.addAttribute("member_Id", member_Id);
             return "Notice/insert";
         }catch(Exception e) {
-            //관리자가 아니면 list로 redirect한다.
-            e.printStackTrace(); //에러 내용 출력
-            rattr.addFlashAttribute("msg", "NOT_ADMIN"); //에러 메시지
+            //위에서 잡지 못한 에러들 잡기
+            e.printStackTrace();
+            rattr.addFlashAttribute("msg", "NOTICE_INSERT_MV_UNKNOWN");
+            //공지 list로 redirect
             return "redirect:/cs/notice/list";
         }
     }
 
     //1-2.저장(post, insert)
     @PostMapping("/insert") //예외처리(멤버 정보 못가져왔을때)
-    public String insert(NoticeDto noticeDto, Model m, RedirectAttributes rattr){
-        //TODO : 관리자 validation
-        //1) session이 있는지, session에서 is_admin값이 있는지, is_admin의 값이 Y인지 확인
-        //2) 아니면 예외 발생하고 list로 redirect
+    public String insert(HttpSession session, NoticeDto noticeDto, Model m, RedirectAttributes rattr){
+        //관리자인지 확인
+        //1)로그인 상태인지
+        if(session.getAttribute("id") == null) {
+            rattr.addFlashAttribute("msg", "Not Signed In");
+            return "redirect:/member/login";
+        }
+        //2) session에서 is_admin "A"인지 판별
+        if(!(session.getAttribute("isAdmin").equals("A"))){
+            rattr.addFlashAttribute("msg", "NOT_ADMIN");
+            return "redirect:/cs/notice/list";
+        }
+        String writer = (String)session.getAttribute("id");
+
         //3) 맞으면 noticeDto의 writer에 member_number 저장하고(noticeDto.setWriter(writer)) insert.html
         try {
             //도메인 검증
             CSDtoCheck.validateNoticeDto(noticeDto);
+            noticeDto.setWriter(writer);
 
             //1)noticeDto 삽입, 실패시 예외 던지기
             if (noticeService.insert(noticeDto) != 1) throw new Exception("Service.insert() failed");
@@ -145,16 +154,26 @@ public class NoticeController {
 
     //4.update 화면 이동 - 관리자만 가능, 예외처리
     @GetMapping("/update/{id}")
-    public String update(@PathVariable("id") Long id, Model m, RedirectAttributes rattr){
-        //TODO : 관리자 validation
-        //관리자 여부 확인
-        //관리자 아니면 list로 redirect
-        //관리자이면 진행
+    public String update(@PathVariable("id") Long notice_id, HttpSession session, Model m, RedirectAttributes rattr){
+        //1) 로그인 유무 판별
+        if(session.getAttribute("id") == null) {
+            rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+            return "redirect:/member/login";
+        }
+        //2) session에서 is_admin "A"인지 판별
+        if(!(session.getAttribute("isAdmin").equals("A"))){
+            rattr.addFlashAttribute("msg", "NOT_ADMIN");
+            return "redirect:/cs/notice/list/{id}";
+        }
+        //3) session에서 id 가져와서 저장
+        String member_Id = (String)session.getAttribute("id");
+
         try{
-            NoticeDto noticeDto = noticeService.selectById(id); //1) id로 update할 noticeDTO찾기
+            NoticeDto noticeDto = noticeService.selectById(notice_id); //1) id로 update할 noticeDTO찾기
             if(noticeDto == null) {
                 throw new Exception("update select not found"); //1-1) 못찾으면 에러 표시하고 나간다.
             }
+            noticeDto.setModifier(member_Id);//modifier 설정
             m.addAttribute("notice", noticeDto); //2)모델에 추가
             return "Notice/update";
         } catch (Exception e) {
@@ -166,12 +185,17 @@ public class NoticeController {
 
     //4-2.update 요청(POST) - 관리자만 가능, 예외처리
     @PostMapping("/update/{id}")
-    public String update(NoticeDto noticeDto, Model m, RedirectAttributes rattr) {
-        //TODO : 관리자 validation
-        //관리자 여부 확인
-        //관리자 아니면 list로 redirect
-        //관리자이면 진행
-        //관리자의 id 저장, dto.setModifier(id)
+    public String update(HttpSession session, NoticeDto noticeDto, Model m, RedirectAttributes rattr) {
+        //1) 로그인 유무 판별
+        if(session.getAttribute("id") == null) {
+            rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+            return "redirect:/member/login";
+        }
+        //2) session에서 is_admin "A"인지 판별
+        if(!(session.getAttribute("isAdmin").equals("A"))){
+            rattr.addFlashAttribute("msg", "NOT_ADMIN");
+            return "redirect:/cs/notice/list/{id}";
+        }
         try{
             //도메인 검증
             CSDtoCheck.validateNoticeDto(noticeDto);
@@ -189,20 +213,27 @@ public class NoticeController {
 
     //5.삭제 요청(GET) - 관리자만 가능, 예외처리
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id, Model m, RedirectAttributes rattr){
-        //TODO : 관리자 validation
-        //관리자 여부 확인
-        //관리자 아니면 list로 redirect
-        //관리자이면 진행
+    public String delete(@PathVariable("id") Long id, HttpSession session, Model m, RedirectAttributes rattr){
+        //1) 로그인 유무 판별
+        if(session.getAttribute("id") == null) {
+            rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+            return "redirect:/member/login";
+        }
+        //2) session에서 is_admin "A"인지 판별
+        if(!(session.getAttribute("isAdmin").equals("A"))){
+            rattr.addFlashAttribute("msg", "NOT_ADMIN");
+            return "redirect:/cs/notice/list/{id}";
+        }
+
         //관리자의 id 저장, dto.setModifier(id)
         try{
-            if(noticeService.delete(id) != 1) throw new Exception("service.delete() failed"); //1) 해당 id delete() 호출
+            if(noticeService.delete(id, (String)session.getAttribute("id")) != 1) throw new Exception("service.delete() failed"); //1) 해당 id delete() 호출
             rattr.addFlashAttribute("msg", "DELETE_OK");             //2) 성공 메시지 보내기
-            return "redirect:/cs/notice/list";                                                   //3) 리스트로 돌아간다.
+            return "redirect:/cs/notice/list";                                                //3) 리스트로 돌아간다.
         } catch (Exception e) {
             e.printStackTrace();                                                              //1) 실패시 에러 출력
             rattr.addFlashAttribute("msg", "DELETE_ERR");            //2) 에러 메시지 보내기
-            return "Notice/detail";                                                                  //3) 상세 화면으로 돌아가기
+            return "Notice/detail";                                                           //3) 상세 화면으로 돌아가기
         }
     }
 }

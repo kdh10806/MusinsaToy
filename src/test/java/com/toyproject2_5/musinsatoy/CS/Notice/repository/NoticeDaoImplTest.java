@@ -51,10 +51,10 @@ public class NoticeDaoImplTest {
 //        int testNum = 220;
 //        for (int i = 1; i <= testNum; i++) {
 //            if(i % 100 == 0) {
-//                NoticeDto tempDto = new NoticeDto("testing" + i, "testing content" + i, 11, "Y");
+//                NoticeDto tempDto = new NoticeDto("testing" + i, "testing content" + i, "20230101001", "Y","Y");
 //                assertTrue(noticeDao.insert(tempDto) == 1);
 //            } else {
-//                NoticeDto tempDto = new NoticeDto("testing" + i, "testing content" + i, 12, "N");
+//                NoticeDto tempDto = new NoticeDto("testing" + i, "testing content" + i, "20230101001", "N", "Y");
 //                assertTrue(noticeDao.insert(tempDto) == 1);
 //            }
 //        }
@@ -71,7 +71,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)DTO 한 개 생성 후 db 삽입
-        NoticeDto tempDto = new NoticeDto("testing1", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing1", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto) == 1); //DAO에 한 개 삽입, 검증
 
         //3)db 데이터 갯수 1개인지 확인
@@ -101,7 +101,7 @@ public class NoticeDaoImplTest {
         List<NoticeDto> dbDtoList = new ArrayList<>(); //db에서 가져온 dto를 넣을 리스트
 
         for (int i = 1; i <= testNum; i++) {
-            NoticeDto noticeDto = new NoticeDto("testing"+i, "testing content", 11, "Y", "Y");
+            NoticeDto noticeDto = new NoticeDto("testing"+i, "testing content", "11", "Y", "Y");
             tempDtoList.add(noticeDto); //dtoList에 추가
             assertTrue(noticeDao.insert(noticeDto) == 1); //Db에 삽입, 검증
         }
@@ -137,7 +137,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)dto 생성 - 제목 필수인데 null값 줌
-        NoticeDto tempDto = new NoticeDto(null, "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto(null, "testing content", "11", "Y", "Y");
 
         //3)insert수행, 검증
         assertThrows(DataIntegrityViolationException.class, () -> noticeDao.insert(tempDto));
@@ -155,7 +155,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)dto 생성 - is_top_post 1글자인데 10글자 넣기
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "1234567890", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "1234567890", "Y");
 
         //3)insert수행, 검증
         assertThrows(DataIntegrityViolationException.class, () -> noticeDao.insert(tempDto));
@@ -180,7 +180,7 @@ public class NoticeDaoImplTest {
         //3)DTO 1000번 생성, DB에 1000번 넣기
         for (int i = 1; i <= 1000; i++) {
             //DTO 생성
-            NoticeDto noticeDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto noticeDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
             //리스트에 추가
             tempDtoList.add(noticeDto);
             //DTO 삽입
@@ -215,7 +215,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count()==0);
 
         //2) Dto 생성 후 db에 하나 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto)==1);
 
         //3) dao에서 0번째 dto의 id 가져온다. 해당 아이디로 찾아서 삭제후 확인
@@ -242,7 +242,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count()==0);
 
         //2) dto 생성후 1번 삽입 1번 삭제
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto)==1); //하나 넣고
         assertTrue(noticeDao.deleteAll()==1); //전체 빼고
         assertTrue(noticeDao.count()==0); //0개인지
@@ -272,8 +272,8 @@ public class NoticeDaoImplTest {
 
         //3) db에 100개 data 넣기
         for (int i = 1; i <= testNum; i++) {
-            NoticeDto tempDto = new NoticeDto("testing"+i, "testing content", 11, "Y", "Y");
-            tempDtoList.add(tempDto); //dtoList에 추가
+            NoticeDto tempDto = new NoticeDto("testing"+i, "testing content", "11", "Y", "Y");
+            tempDtoList.add(tempDto); //dtoList에 추가"
             assertTrue(noticeDao.insert(tempDto) == 1); //db에 삽입
         }
         assertTrue(noticeDao.count() == testNum); //db data 갯수 count
@@ -298,7 +298,7 @@ public class NoticeDaoImplTest {
         //2) db에 100개 data 넣기
         for (int i = 1; i <= 100; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
 
             //DTO 삽입
             assertTrue(noticeDao.insert(tempDto) == 1);
@@ -322,7 +322,7 @@ public class NoticeDaoImplTest {
         //2) db에 5개 data 넣기
         for (int i = 1; i <= 5; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
 
             //DTO 삽입
             assertTrue(noticeDao.insert(tempDto) == 1);
@@ -348,7 +348,7 @@ public class NoticeDaoImplTest {
         int testNum = 1000;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
 
             //DTO 삽입
             assertTrue(noticeDao.insert(tempDto) == 1);
@@ -383,7 +383,7 @@ public class NoticeDaoImplTest {
         int testNum = 1000;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
 
             //DTO 삽입
             assertTrue(noticeDao.insert(tempDto) == 1);
@@ -417,10 +417,10 @@ public class NoticeDaoImplTest {
         int testNum = 10;
         for (int i = 1; i <= testNum; i++) {
             if(i % 3 == 0) {
-                NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+                NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
                 assertTrue(noticeDao.insert(tempDto) == 1);
             } else {
-                NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "N", "Y");
+                NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "N", "Y");
                 assertTrue(noticeDao.insert(tempDto) == 1);
             }
         }
@@ -445,7 +445,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.count() == 2); //db데이터 2개인지 확인
@@ -455,7 +455,7 @@ public class NoticeDaoImplTest {
         //3)업데이트용 dto 생성 - is_top_post=N
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, "testing-updated", "testing content - updated", nowStr, 12,  "N", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, "testing-updated", "testing content - updated", nowStr, "12",  "N", "Y");
 
         //4)update수행
         assertTrue(noticeDao.update(updateDto) == 1);
@@ -474,7 +474,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.count() == 1); //db데이터 1개인지 확인
 
@@ -483,7 +483,7 @@ public class NoticeDaoImplTest {
         //3)업데이트용 dto 생성 - is_top_post=N
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, "testing-updated", "testing content - updated", nowStr, 12,  "N", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, "testing-updated", "testing content - updated", nowStr, "12",  "N", "Y");
 
         //4)update수행
         assertTrue(noticeDao.update(updateDto) == 1);
@@ -502,7 +502,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.count() == 1); //db데이터 1개인지 확인
 
@@ -511,7 +511,7 @@ public class NoticeDaoImplTest {
         //3)업데이트용 dto 생성 - is_top_post=N
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, "testing-updated", "testing content - updated", nowStr, 12,  "N", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, "testing-updated", "testing content - updated", nowStr, "12",  "N", "Y");
 
         //4)update수행
         assertTrue(noticeDao.update(updateDto) == 1);
@@ -532,7 +532,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2) is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.count() == 2); //db데이터 2개인지 확인
@@ -544,7 +544,7 @@ public class NoticeDaoImplTest {
         //4)업데이트용 dto 생성 - title not null인데 null값을 준다.
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, null, "testing content - updated", nowStr, 12,  "N", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, null, "testing content - updated", nowStr, "12",  "N", "Y");
 
         //5)update수행
         assertThrows(DataIntegrityViolationException.class, () -> noticeDao.update(updateDto));
@@ -559,7 +559,7 @@ public class NoticeDaoImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeDao.count() == 2); //db데이터 2개인지 확인
@@ -569,7 +569,7 @@ public class NoticeDaoImplTest {
         //3)업데이트용 dto 생성 - is_top_post=N
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId+2, "testing-updated", "testing content - updated", nowStr, 12,  "N", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId+2, "testing-updated", "testing content - updated", nowStr, "12",  "N", "Y");
 
         //4)update수행
         assertTrue(noticeDao.update(updateDto)==0);
@@ -587,7 +587,7 @@ public class NoticeDaoImplTest {
         //2) 125개 넣는다
         int testNum = 125;
         for(int i = 1; i <= testNum; i++) {
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "N", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "N", "Y");
             assertTrue(noticeDao.insert(tempDto) == 1);
         }
         assertTrue(noticeDao.count() == testNum);
@@ -617,7 +617,7 @@ public class NoticeDaoImplTest {
 
         //2)db에 데이터 10개 저장
         for (int i = 1; i <= 10; i++) {
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "N", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "N", "Y");
             noticeDao.insert(tempDto);
         }
 

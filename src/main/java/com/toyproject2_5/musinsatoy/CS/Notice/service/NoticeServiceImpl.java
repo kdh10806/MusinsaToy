@@ -56,22 +56,21 @@ public class NoticeServiceImpl implements NoticeService {
     //5. 수정 - update() - 제목, 내용,
     @Override
     public int update(NoticeDto noticeDto) throws Exception{
-        //TODO : 삭제한 관리자의 id 받아와서 매개변수로 주기
-        Integer modifier_id = 12;
-        String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeDto.getNotice_id(), noticeDto.getNotice_title(), noticeDto.getNotice_content(), nowStr, modifier_id, noticeDto.getIs_top_post(), noticeDto.getIs_post());
+        //수정시간 생성
+        String nowStr = LocalDateTime.now().toString();
+        //수정할 updateDto 생성
+        NoticeDto updateDto = new NoticeDto(noticeDto.getNotice_id(), noticeDto.getNotice_title(), noticeDto.getNotice_content(), nowStr, noticeDto.getModifier(), noticeDto.getIs_top_post(), noticeDto.getIs_post());
         return noticeDao.update(updateDto);
     }
 
     //5. 삭제 - is_post를 "N"으로 변경하는 update()
     @Override
-    public int delete(Long id) throws Exception {
+    public int delete(Long id, String modifier_id) throws Exception {
         //해당 id로 글 찾고
         NoticeDto selectDto = noticeDao.selectById(id);
+        //현재시간 생성
+        String nowStr = LocalDateTime.now().toString();
         //updateDto 생성
-        //TODO : 삭제한 관리자의 id 받아와서 매개변수로 주기
-        Integer modifier_id = 12;
-        String nowStr = LocalDateTime.now().toString(); //현재시간 생성
         NoticeDto updateDto = new NoticeDto(selectDto.getNotice_id(), selectDto.getNotice_title(), selectDto.getNotice_content(), nowStr, modifier_id, selectDto.getIs_top_post(), "N");
         return noticeDao.update(updateDto);
     }

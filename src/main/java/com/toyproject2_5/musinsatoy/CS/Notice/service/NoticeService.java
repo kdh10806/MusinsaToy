@@ -25,7 +25,7 @@ public interface NoticeService {
     int update(NoticeDto noticeDto) throws Exception;
 
     //5. 삭제 - is_post를 "N"으로 변경하는 update()
-    int delete(Long id) throws Exception;
+    int delete(Long id, String modifier_id) throws Exception;
 
     //6. 공지 게시글 수 count
     int getCount() throws Exception;

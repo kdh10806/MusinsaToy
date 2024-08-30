@@ -14,6 +14,7 @@
 <form th:action="@{|/cs/notice/update/${notice.notice_id}|}" method="post" name="updateForm">
     <input type="hidden" name="notice_id" th:value="${notice.notice_id}">
     작성자 : <input type="text" name="writer" th:value="${notice.writer}" readonly><br>
+    수정자 : <input type="text" name="modifier" th:value="${notice.modifier}" readonly><br>
     제목 : <input type="text" name="notice_title" th:value="${notice.notice_title}"><br>
     내용 : <textarea name="notice_content" cols="30" rows="10" th:text="${notice.notice_content}"></textarea><br>
     공지 상단 고정 :

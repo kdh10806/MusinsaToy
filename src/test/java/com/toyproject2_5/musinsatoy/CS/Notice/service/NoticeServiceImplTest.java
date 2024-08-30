@@ -42,7 +42,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)DTO 한 개 생성 후 db 삽입
-        NoticeDto tempDto = new NoticeDto("testing1", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing1", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //DAO에 한 개 삽입, 검증
 
         //3)db 데이터 갯수 1개인지 확인
@@ -62,7 +62,7 @@ class NoticeServiceImplTest {
         //2) DTO 천개 생성, db 삽입
         int testNum = 1000;
         for (int i = 1; i <= testNum; i++) {
-            NoticeDto tempDto = new NoticeDto("testing"+i, "testing content", 11, "N", "Y");
+            NoticeDto tempDto = new NoticeDto("testing"+i, "testing content", "11", "N", "Y");
             assertTrue(noticeService.insert(tempDto) == 1); //Db에 삽입, 검증
         }
 
@@ -82,7 +82,7 @@ class NoticeServiceImplTest {
         int testNum = 1000;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
             //DTO 삽입
             assertTrue(noticeService.insert(tempDto) == 1);
         }
@@ -107,7 +107,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeDao.count() == 0);
 
         //2)DTO 한 개 생성 후 db 삽입
-        NoticeDto tempDto = new NoticeDto("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt", "testing content", "11", "Y", "Y");
         assertThrows(DataIntegrityViolationException.class, () -> noticeService.insert(tempDto));
     }
 
@@ -132,7 +132,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2) is_top_post = N인 dto 생성
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, null, "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", null, "Y");
         //3) dto 삽입
         assertTrue(noticeService.insert(tempDto) == 1);
 
@@ -156,7 +156,7 @@ class NoticeServiceImplTest {
         int testNum = 100;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
             //DTO 삽입
             assertTrue(noticeService.insert(tempDto) == 1);
         }
@@ -183,7 +183,7 @@ class NoticeServiceImplTest {
         int testNum = 100;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
             //DTO 삽입
             assertTrue(noticeService.insert(tempDto) == 1);
         }
@@ -206,7 +206,7 @@ class NoticeServiceImplTest {
         int testNum = 100;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
             //DTO 삽입
             assertTrue(noticeService.insert(tempDto) == 1);
         }
@@ -228,7 +228,7 @@ class NoticeServiceImplTest {
         //2) 125개 넣는다
         int testNum = 125;
         for(int i = 1; i <= testNum; i++) {
-            NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "N", "Y");
+            NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "N", "Y");
             assertTrue(noticeService.insert(tempDto) == 1);
         }
         assertTrue(noticeService.getCount() == testNum);
@@ -262,10 +262,10 @@ class NoticeServiceImplTest {
         int testNum = 10;
         for (int i = 1; i <= testNum; i++) {
             if(i % 3 == 0) {
-                NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+                NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
                 assertTrue(noticeService.insert(tempDto) == 1);
             } else {
-                NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "N", "Y");
+                NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "N", "Y");
                 assertTrue(noticeService.insert(tempDto) == 1);
             }
         }
@@ -285,7 +285,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.getCount() == 1); //db데이터 1개인지 확인
 
@@ -294,7 +294,7 @@ class NoticeServiceImplTest {
         //3)업데이트용 dto 생성 - notice_content변경
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, "testing", "testing content - updated", nowStr, 12,  "Y", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, "testing", "testing content - updated", nowStr, "12",  "Y", "Y");
 
         //4)update수행
         assertTrue(noticeService.update(updateDto) == 1); //update 제대로 수행되는지
@@ -313,7 +313,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.getCount() == 2); //db데이터 2개인지 확인
@@ -323,7 +323,7 @@ class NoticeServiceImplTest {
         //3)업데이트용 dto 생성 - title not null인데 null값을 준다.
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, null, "testing content - updated", nowStr, 12,  "Y", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, null, "testing content - updated", nowStr, "12",  "Y", "Y");
 
         //4)update수행
         assertThrows(DataIntegrityViolationException.class, () -> noticeService.update(updateDto));
@@ -338,7 +338,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.getCount() == 2); //db데이터 2개인지 확인
@@ -349,7 +349,7 @@ class NoticeServiceImplTest {
         //3)업데이트용 dto 생성 - is_top_post=Y, 첫번째 데이터 id값 +1으로 찾음
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(lastId + 100, "testing-updated", "testing content - updated", nowStr, 12, "Y", "Y");
+        NoticeDto updateDto = new NoticeDto(lastId + 100, "testing-updated", "testing content - updated", nowStr, "12", "Y", "Y");
 
         //4)update수행
         assertTrue(noticeService.update(updateDto) == 0);
@@ -364,7 +364,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.getCount() == 1); //db데이터 1개인지 확인
 
@@ -373,7 +373,7 @@ class NoticeServiceImplTest {
         //3)업데이트용 dto 생성 - notice_content변경
         sleep(2000); //2초 텀 주기
         String nowStr = LocalDateTime.now().toString(); //현재시간 생성
-        NoticeDto updateDto = new NoticeDto(noticeId, "tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt", "testing content - updated", nowStr, 12,  "Y", "Y");
+        NoticeDto updateDto = new NoticeDto(noticeId, "tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt", "testing content - updated", nowStr, "12",  "Y", "Y");
 
         //4)update수행 - DataIntegrityViolationException
         assertThrows(DataIntegrityViolationException.class, () -> noticeService.insert(updateDto));
@@ -389,7 +389,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.getCount() == 2); //db데이터 2개인지 확인
@@ -397,7 +397,8 @@ class NoticeServiceImplTest {
         Long noticeId = noticeService.selectAllTopPost().get(0).getNotice_id(); //첫번째 noticeId 저장 - 내림차순
 
         //4)delete수행
-        assertTrue(noticeService.delete(noticeId) == 1); //delete 제대로 수행됐는지
+        String modifier_id = "Admin";
+        assertTrue(noticeService.delete(noticeId, modifier_id) == 1); //delete 제대로 수행됐는지
         assertTrue(noticeService.getCount() == 2); //db에 그대로 data 2개인지
 
         //5)해당 id로 찾고 is_post가 N인지 확인
@@ -416,14 +417,15 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)is_post=y DTO 1개생성, DB에 1번 삽입
-        NoticeDto tempDto = new NoticeDto("testing", "testing content", 11, "Y", "Y");
+        NoticeDto tempDto = new NoticeDto("testing", "testing content", "11", "Y", "Y");
         assertTrue(noticeService.insert(tempDto) == 1); //1개 삽입했는지 확인
         assertTrue(noticeService.getCount() == 1); //db데이터 1개인지 확인
 
         Long noticeId = noticeService.selectAllAsc().get(0).getNotice_id(); //첫번째 noticeId 저장
 
         //4)delete수행 - 없는 id
-        assertThrows(NullPointerException.class, () -> noticeService.delete(noticeId+1));
+        String modifier_id = "Admin";
+        assertThrows(NullPointerException.class, () -> noticeService.delete(noticeId+1, modifier_id));
     }
 
     //6-2. 삭제 null값 주고 실행
@@ -435,6 +437,7 @@ class NoticeServiceImplTest {
         assertTrue(noticeService.getCount() == 0);
 
         //2)id 없이 삭제, NullPointerException 예상
-        assertThrows(NullPointerException.class, () -> noticeService.delete(null));
+        String modifier_id = "Admin";
+        assertThrows(NullPointerException.class, () -> noticeService.delete(null, modifier_id));
     }
 }

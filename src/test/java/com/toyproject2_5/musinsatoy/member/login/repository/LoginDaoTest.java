@@ -1,21 +1,15 @@
 package com.toyproject2_5.musinsatoy.member.login.repository;
 
-<<<<<<< Updated upstream
 import com.toyproject2_5.musinsatoy.member.join.dto.MemberDto;
-=======
->>>>>>> Stashed changes
 import com.toyproject2_5.musinsatoy.member.join.repository.MemberDao;
 import com.toyproject2_5.musinsatoy.member.login.dto.LoginDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-<<<<<<< Updated upstream
 import java.util.HashMap;
 import java.util.Map;
 
-=======
->>>>>>> Stashed changes
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -26,7 +20,6 @@ class LoginDaoTest {
     @Autowired
     MemberDao memberDao;
 
-<<<<<<< Updated upstream
     /* 회원 데이터 생성 */
     @Test
     public void createData(){
@@ -300,16 +293,6 @@ class LoginDaoTest {
         assertTrue(loginDao.selectStateCode(memberDto.getId()).equals("40001"));
         assertTrue(loginDao.selectLoginCnt(memberDto.getId())==0);
     }
-=======
-    /* 상태 코드 조회 테스트 */
-//    @Test
-//    public void selectStateCodeTest(){
-//        memberDao.deleteAll();
-//        assertTrue(memberDao.count()==0);
-//
-//
-//
-//    }
->>>>>>> Stashed changes
+
 
 }

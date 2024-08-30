@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 package com.toyproject2_5.musinsatoy.member.join.repository;
 
 import com.toyproject2_5.musinsatoy.member.join.dto.AdminBrandDto;
@@ -10,7 +9,5 @@ public interface AdminBrandDao {
     int count();
     AdminBrandDto selectAdminBrand(String id);
     int insertAdminBrand(AdminBrandDto adminBrandDto);
-=======
-package com.toyproject2_5.musinsatoy.member.join.repository;public interface AdminBrandDao {
->>>>>>> Stashed changes
+
 }

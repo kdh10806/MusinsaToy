@@ -4,10 +4,8 @@ import com.toyproject2_5.musinsatoy.member.join.dto.MemberDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-<<<<<<< Updated upstream
 import org.springframework.test.context.TestPropertySource;
-=======
->>>>>>> Stashed changes
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,7 +38,6 @@ class MemberDaoTest {
         assertTrue(memberDao.count() == 0);
     }
 
-<<<<<<< Updated upstream
     /* insertTest */
     @Test
     public void insertMemberTest(){
@@ -105,7 +102,4 @@ class MemberDaoTest {
         assertTrue(memberDao.selectOne(memberDto2.getId()).getId().equals(memberDto2.getId()));
 
     }
-
-=======
->>>>>>> Stashed changes
 }

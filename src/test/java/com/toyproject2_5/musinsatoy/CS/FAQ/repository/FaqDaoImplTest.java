@@ -46,7 +46,7 @@ class FaqDaoImplTest {
         int testNum = 1000;
         for (int i = 1; i <= testNum; i++) {
             //DTO 생성
-            FaqDto tempDto = new FaqDto("30001", 1, "Testing_FAQ", "Testing_FAQ_Content", 11, "Y");
+            FaqDto tempDto = new FaqDto("30001", 1, "Testing_FAQ", "Testing_FAQ_Content", "11", "Y");
 
             //DTO 삽입
             assertTrue(faqDao.insert(tempDto) == 1);
@@ -106,11 +106,11 @@ class FaqDaoImplTest {
         assertTrue(faqDao.count() == 0);
 
         //2)DTO생성, DB넣기
-        FaqDto tempDto1 = new FaqDto("30001", 1, "Testing_FAQ1", "Testing_FAQ_Content", 11, "Y");
+        FaqDto tempDto1 = new FaqDto("30001", 1, "Testing_FAQ1", "Testing_FAQ_Content", "11", "Y");
         assertTrue(faqDao.insert(tempDto1) == 1);
-        FaqDto tempDto2 = new FaqDto("30001", 2, "Testing_FAQ2", "Testing_FAQ_Content", 11, "Y");
+        FaqDto tempDto2 = new FaqDto("30001", 2, "Testing_FAQ2", "Testing_FAQ_Content", "11", "Y");
         assertTrue(faqDao.insert(tempDto2) == 1);
-        FaqDto tempDto3 = new FaqDto("30002", 1, "Testing_FAQ3", "Testing_FAQ_Content", 11, "Y");
+        FaqDto tempDto3 = new FaqDto("30002", 1, "Testing_FAQ3", "Testing_FAQ_Content", "11", "Y");
         assertTrue(faqDao.insert(tempDto3) == 1);
         assertTrue(faqDao.count() == 3);
 
@@ -132,11 +132,11 @@ class FaqDaoImplTest {
         assertTrue(faqDao.count() == 0);
 
         //2)DTO생성, DB넣기
-        FaqDto tempDto1 = new FaqDto("30001", 1, "Testing_FAQ1", "Testing_FAQ_Content", 11, "Y");
+        FaqDto tempDto1 = new FaqDto("30001", 1, "Testing_FAQ1", "Testing_FAQ_Content", "11", "Y");
         assertTrue(faqDao.insert(tempDto1) == 1);
-        FaqDto tempDto2 = new FaqDto("30001", 2, "Testing_FAQ2", "Testing_FAQ_Content", 11, "Y");
+        FaqDto tempDto2 = new FaqDto("30001", 2, "Testing_FAQ2", "Testing_FAQ_Content", "11", "Y");
         assertTrue(faqDao.insert(tempDto2) == 1);
-        FaqDto tempDto3 = new FaqDto("30002", 1, "Testing_FAQ3", "Testing_FAQ_Content", 11, "Y");
+        FaqDto tempDto3 = new FaqDto("30002", 1, "Testing_FAQ3", "Testing_FAQ_Content", "11", "Y");
         assertTrue(faqDao.insert(tempDto3) == 1);
         assertTrue(faqDao.count() == 3);
 
@@ -174,11 +174,11 @@ class FaqDaoImplTest {
         assertTrue(faqDao.count() == 0);
 
         //2)DTO생성, DB넣기
-        FaqDto tempDto1 = new FaqDto("30001", 1, "Testing_FAQ", "Testing_Content1", 11, "Y");
+        FaqDto tempDto1 = new FaqDto("30001", 1, "Testing_FAQ", "Testing_Content1", "11", "Y");
         assertTrue(faqDao.insert(tempDto1) == 1);
-        FaqDto tempDto2 = new FaqDto("30001", 2, "Testing_FAQ", "Testing_Content2", 11, "Y");
+        FaqDto tempDto2 = new FaqDto("30001", 2, "Testing_FAQ", "Testing_Content2", "11", "Y");
         assertTrue(faqDao.insert(tempDto2) == 1);
-        FaqDto tempDto3 = new FaqDto("30002", 1, "Testing_FAQ", "Testing_Content3", 11, "Y");
+        FaqDto tempDto3 = new FaqDto("30002", 1, "Testing_FAQ", "Testing_Content3", "11", "Y");
         assertTrue(faqDao.insert(tempDto3) == 1);
         assertTrue(faqDao.count() == 3);
 
@@ -202,10 +202,10 @@ class FaqDaoImplTest {
         int testNum = 1000;
         for(int i = 1; i <= testNum; i++) {
             if(i % 100 == 0) {
-                FaqDto tempDto = new FaqDto("30001", 1, "Testing_FAQ" + i + "hello", "Testing_Content"+i, 11, "Y");
+                FaqDto tempDto = new FaqDto("30001", 1, "Testing_FAQ" + i + "hello", "Testing_Content"+i, "11", "Y");
                 assertTrue(faqDao.insert(tempDto) == 1);
             } else {
-                FaqDto tempDto = new FaqDto("30001", 1, "Testing_FAQ" + i, "Testing_Content"+i, 11, "Y");
+                FaqDto tempDto = new FaqDto("30001", 1, "Testing_FAQ" + i, "Testing_Content"+i, "11", "Y");
                 assertTrue(faqDao.insert(tempDto) == 1);
             }
         }

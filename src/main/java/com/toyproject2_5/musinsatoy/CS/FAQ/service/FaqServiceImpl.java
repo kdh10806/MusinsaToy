@@ -62,22 +62,19 @@ public class FaqServiceImpl implements FaqService {
     @Override
     public int update(FaqDto faqDto) throws Exception {
         String nowStr = LocalDateTime.now().toString();
-        //TODO) 수정하는 관리자의 id 받아와서 매개변수로 주기
-        Integer modifier_id = 12;
-        FaqDto updateDto = new FaqDto(faqDto.getFaq_id(), faqDto.getFaq_category_code(), faqDto.getFaq_subcategory_id(), faqDto.getFaq_title(), faqDto.getFaq_content(), nowStr, modifier_id, faqDto.getIs_post());
+
+        FaqDto updateDto = new FaqDto(faqDto.getFaq_id(), faqDto.getFaq_category_code(), faqDto.getFaq_subcategory_id(), faqDto.getFaq_title(), faqDto.getFaq_content(), nowStr, faqDto.getModifier(), faqDto.getIs_post());
         return faqDao.update(updateDto);
     }
 
     //6. 삭제 - delete(), is_post를 "N"으로 변경
     @Override
-    public int delete(Integer id) throws Exception {
+    public int delete(Integer id, String modifier_id) throws Exception {
         //1)해당 id로 게시물 찾기
         FaqDto selectDto = faqDao.selectById(id);
         if(selectDto == null) throw new Exception("Service delete select failed");
         //2)updateDto 생성
         String nowStr = LocalDateTime.now().toString();
-        //TODO) 수정하는 관리자의 id 받아와서 매개변수로 주기
-        Integer modifier_id = 12;
         FaqDto updateDto = new FaqDto(selectDto.getFaq_id(), selectDto.getFaq_category_code(), selectDto.getFaq_subcategory_id(), selectDto.getFaq_title(), selectDto.getFaq_content(), nowStr, modifier_id, "N");
         //3)update 수행
         return faqDao.update(updateDto);

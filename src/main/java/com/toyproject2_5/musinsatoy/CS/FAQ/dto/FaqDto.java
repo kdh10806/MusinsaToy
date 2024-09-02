@@ -13,14 +13,14 @@ public class FaqDto {
     private String   faq_content;
     private String   create_datetime;
     private String   modify_datetime;
-    private Integer  writer;
-    private Integer  modifier;
+    private String  writer;
+    private String  modifier;
     private String   is_post;
 
     //Constructor
     public FaqDto() {}
     //create용 생성자
-    public FaqDto(String faq_category_code, Integer faq_subcategory_id, String faq_title, String faq_content, Integer writer, String is_post) {
+    public FaqDto(String faq_category_code, Integer faq_subcategory_id, String faq_title, String faq_content, String writer, String is_post) {
         this.faq_category_code = faq_category_code;
         this.faq_subcategory_id = faq_subcategory_id;
         this.faq_title = faq_title;
@@ -29,7 +29,7 @@ public class FaqDto {
         this.is_post = is_post;
     }
     //modify용 생성자
-    public FaqDto(Integer faq_id, String faq_category_code, Integer faq_subcategory_id, String faq_title, String faq_content, String modify_datetime, Integer modifier, String is_post) {
+    public FaqDto(Integer faq_id, String faq_category_code, Integer faq_subcategory_id, String faq_title, String faq_content, String modify_datetime, String modifier, String is_post) {
         this.faq_id = faq_id;
         this.faq_category_code = faq_category_code;
         this.faq_subcategory_id = faq_subcategory_id;
@@ -40,7 +40,7 @@ public class FaqDto {
         this.is_post = is_post;
     }
     //select용 생성자
-    public FaqDto(Integer faq_id, String faq_category_code, Integer faq_subcategory_id, String faq_category_name, String faq_subcategory_name, String faq_title, String faq_content, String create_datetime, String modify_datetime, Integer writer, Integer modifier, String is_post) {
+    public FaqDto(Integer faq_id, String faq_category_code, Integer faq_subcategory_id, String faq_category_name, String faq_subcategory_name, String faq_title, String faq_content, String create_datetime, String modify_datetime, String writer, String modifier, String is_post) {
         this.faq_id = faq_id;
         this.faq_category_code = faq_category_code;
         this.faq_subcategory_id = faq_subcategory_id;
@@ -125,11 +125,11 @@ public class FaqDto {
         return modify_datetime;
     }
 
-    public Integer getWriter() {
+    public String getWriter() {
         return writer;
     }
 
-    public Integer getModifier() {
+    public String getModifier() {
         return modifier;
     }
 
@@ -173,11 +173,11 @@ public class FaqDto {
         this.modify_datetime = modify_datetime;
     }
 
-    public void setWriter(Integer writer) {
+    public void setWriter(String writer) {
         this.writer = writer;
     }
 
-    public void setModifier(Integer modifier) {
+    public void setModifier(String modifier) {
         this.modifier = modifier;
     }
 

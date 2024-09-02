@@ -81,7 +81,7 @@
 </script>
 <form action="/cs/faq/insert" method="post">
     제목 : <input type="text" name="faq_title" th:value="${faqDto != null ? faqDto.faq_title : ''}"><br>
-    작성자 : <input type="text" name="writer" th:value="${faqDto != null ? faqDto.writer : ''}"><br>
+    작성자 : <input type="text" name="writer" th:value="${admin_id}" readonly><br>
     <label for="category">문의 유형 : </label>
     <select id="category" name="faq_category_code" onchange="SubCategoryChoice()">
         <option value="30001">배송</option>

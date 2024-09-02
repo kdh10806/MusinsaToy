@@ -83,6 +83,7 @@
 <form th:action="@{|/cs/faq/update/${faqDto.faq_id}|}" method="post" name="updateForm">
     <input type="hidden" name="faq_id" th:value="${faqDto.faq_id}">
     작성자 : <input type="text" name="writer" th:value="${faqDto.writer}" readonly><br>
+    수정자 : <input type="text" name="modifier" th:value="${admin_id}" readonly><br>
     <label for="category">문의 유형 : </label>
     <select id="category" name="faq_category_code" onchange="SubCategoryChoice()">
         <option value="30001">배송</option>

@@ -1,5 +1,5 @@
 
-insert into brand(brand_id, name, img, product_num)
+insert ignore into brand(brand_id, name, img, product_num)
 	values
 		('GUCCI', '구찌', 'brandProducts/GUCCI/GUCCIimg.jpg',50),
 		('NIKE', '나이키', 'brandProducts/NIKE/NIKEimg.jpg',120),
@@ -13,7 +13,7 @@ insert into brand(brand_id, name, img, product_num)
 		('BURBERRY', '버버리', 'brandProducts/BURBERRY/BURBERRYimg.jpg', 105)
 ;
 
-insert into product_description(product_description_id, description, modify_datetime)
+insert  ignore into product_description(product_description_id, description, modify_datetime)
 	values
 		('NIKE000000001', '나이키의 반팔 티는 좋은 제품이다.', '2019-05-22'),
         ('NIKE000000007', '나이키 남성 티셔츠는 통기성이 뛰어나며 편안한 착용감을 제공합니다.', '2024-08-20 00:00:00'),
@@ -32,7 +32,7 @@ insert into product_description(product_description_id, description, modify_date
 ;
 
 
-INSERT INTO category (category_id, category_name, parent_category_id) 
+INSERT ignore  INTO category (category_id, category_name, parent_category_id) 
 	VALUES
 
 		('C01', '의류', NULL),
@@ -124,7 +124,7 @@ INSERT INTO category (category_id, category_name, parent_category_id)
 ;
 
 
-INSERT INTO product (
+INSERT ignore INTO product (
     product_id
     , product_description_id
     , category_id
@@ -168,7 +168,7 @@ INSERT INTO product (
 
         
 
-INSERT INTO product_description_img (
+INSERT ignore INTO product_description_img (
     product_description_id
     , name
     , order_num
@@ -248,7 +248,7 @@ INSERT ignore INTO stock(product_id, product_option_id,  quantity)
 ;
 
 
-insert into member_info(member_state_code, id, password, name, birth, sex, phone_number, email, login_datetime, modify_datetime, register_datetime, exit_datetime ,recommand_id, is_admin)
+insert ignore into member_info(member_state_code, id, password, name, birth, sex, phone_number, email, login_datetime, modify_datetime, register_datetime, exit_datetime ,recommand_id, is_admin)
 values
 ('40001', 'asdf1234', 'asdf1234!', '김진철', '2000-08-22', 'M', '01012345678', 'asdf@naver.com', now(), now() ,'2023-02-20 8:09:45', '9999-12-31 23:59:59', NULL, 'U' ),
 ('40001', 'qwer1234', 'qwer1234!', '우소미', '1999-09-22', 'F', '01009876543', 'qwer@naver.com', now(), now() ,'2023-04-21 8:09:35', '9999-12-31 23:59:59', 'asdf1234', 'U' ),
@@ -263,14 +263,16 @@ values
 ('40001', '20230101001', '20230101001!', '문연지', '1992-11-24', 'F', '01001234567', 'yeonji@naver.com',now(), now() , '2023-12-01 8:00:00', '9999-12-31 23:59:59', NULL, 'A' ),
 ('40001', '20240101001', '20240101001!', '이아윤', '1994-11-14', 'F', '01087654321', 'ayoon@naver.com', now(), now() ,'2024-01-01 8:00:00', '9999-12-31 23:59:59', NULL, 'B' ),
 ('40001', '20240101002', '20240101002!', '윤모석', '1997-04-17', 'M', '01076543210', 'yoon@naver.com', now(), now() ,'2024-01-01 8:00:00', '9999-12-31 23:59:59', NULL, 'B' ),
-('40001', '20240101003', '20240101003!', '오민승', '2002-09-28', 'F', '01065432109', 'ohmin@naver.com', now(), now() ,'2024-01-01 8:00:00', '9999-12-31 23:59:59', NULL, 'B' )
+('40001', '20240101003', '20240101003!', '오민승', '2002-09-28', 'F', '01065432109', 'ohmin@naver.com', now(), now() ,'2024-01-01 8:00:00', '9999-12-31 23:59:59', NULL, 'B' ),
+('40001', 'jlwoo0925', 'jlwoo0925!', '정룡우', '2002-09-25', 'M', '01065432109', 'jlwoo092513@gmail.com', now(), now() ,'2024-01-01 8:00:00', '9999-12-31 23:59:59', NULL, 'B' )
 ;
 
 
-insert into admin_brand(id, brand_code)
+insert ignore into admin_brand(id, brand_code)
 values
 ('20240101001', 'GUCCI'),
 ('20240101002', 'NIKE'),
-('20240101003', 'CHANEL')
+('20240101003', 'CHANEL'),
+('jlwoo0925','MNC')
 ;
 

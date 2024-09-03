@@ -9,8 +9,9 @@ import com.toyproject2_5.musinsatoy.Item.product.dto.*;
 import com.toyproject2_5.musinsatoy.Item.product.dto.option.OptionDBregisterDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.PageInfo;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.EditPageInfo;
-import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.ProductEditPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.cursor.ProductCursorPageDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.HasNextPageInfo;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.stock.StockRegisterDto;
 import com.toyproject2_5.musinsatoy.Item.productDescription.dao.ProductDescriptionDao;
 import com.toyproject2_5.musinsatoy.Item.productDescription.dto.ProductDescription;
@@ -22,10 +23,10 @@ import com.toyproject2_5.musinsatoy.Item.productDescriptionImg.dto.ProductDescri
 import com.toyproject2_5.musinsatoy.ETC.util.S3FileService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
+import org.springdoc.core.parsers.ReturnTypeParser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.EditorKit;
 import java.io.IOException;
 import java.util.*;
 
@@ -42,6 +43,7 @@ public class ProductService {
     private final S3FileService s3FileService;
     private final CategoryDaoMysql categoryDao;
     private final StockDaoMysql stockDao;
+    private final ReturnTypeParser genericReturnTypeParser;
 
 
     //상품 등록.
@@ -83,6 +85,9 @@ public class ProductService {
                         }
                 }
             }
+
+            //productID를 UUID로 랜덤하게 생성.
+            productRegisterDto.setProductId(UUID.randomUUID().toString().substring(0,25));
 
             //상품의 대표 이미지의 s3경로 구하기
             String repFilePrefix = s3FileService.repImgPrefixPath(productRegisterDto.getBrandId(), productRegisterDto.getProductId(),productRegisterDto.getRepImg());
@@ -430,34 +435,26 @@ public class ProductService {
         }
 
         return OptionList;
-        /*
-            Option List
-        * A1 , L, 1
-        * A2 , XL , 1
-        * A1B1, blue, 2
-        * A1B2, black, 2
-        * A2B1, blue, 2
-        * A2B2, black, 2
 
-        나중에 프론트에서는 다 넘겨주고
-        //optionList 는 List<OptionDBRegisterDto>
+    }
 
-        function(n,parentCode){
+    /*
+    *  키워드로 상품 검색 시.
+    * */
+    @Transactional(readOnly = true)
+    public SearchPageDto searchProduct(SearchProductDto searchDto) {
+        searchDto.calOffset();
 
-            selections= [][];
+        HasNextPageInfo data = new HasNextPageInfo();
 
-            for(Option in optionList){
-                if(Option.depth=n && Option.startsWith(parentCode)){
+        //이부분
+        data.setPage(searchDto.getPage());
+        data.setSize(searchDto.getSize());
 
-                let array = [Option.optionId, Option.optionName]
-                selections = push(array);
 
-                }
-            }
-            return selections;
-        }
-         */
+        //List받아와서 data.setList(productDao.findByKeyword(searchDto)));
 
+        return new SearchPageDto();
     }
 }
 

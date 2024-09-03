@@ -7,8 +7,6 @@ import com.toyproject2_5.musinsatoy.Item.brand.dto.BrandListDto;
 import com.toyproject2_5.musinsatoy.Item.brand.dto.page.BrandPageInfo;
 import com.toyproject2_5.musinsatoy.Item.brand.dto.BrandCreateDto;
 import com.toyproject2_5.musinsatoy.Item.brand.dto.BrandUpdateDto;
-import com.toyproject2_5.musinsatoy.Item.product.dao.ProductDao;
-import com.toyproject2_5.musinsatoy.ETC.util.FileService;
 import com.toyproject2_5.musinsatoy.ETC.util.S3FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

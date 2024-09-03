@@ -86,8 +86,8 @@
             <label for="name">상품 이름:</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="productId">상품 Id:</label>
-            <input type="text" id="productId" name="productId" required>
+            <label for="brandProductCode">상품 Id:</label>
+            <input type="text" id="brandProductCode" name="brandProductCode" required>
             <div th:unless="${session.brand.equals('NONE')}">
                 <label for="brandId" th:text="|브랜드 ID : ${session.brand}|">브랜드 Id:</label>
                 <input type="hidden" id="brandId" name="brandId" th:value="${session.brand}">
@@ -404,7 +404,7 @@
                 });
 
                 const productDto = {
-                    productId: document.getElementById('productId').value,
+                    brandProductCode: document.getElementById('brandProductCode').value,
                     name: document.getElementById('name').value,
                     brandId: document.getElementById('brandId').value,
                     productDescriptionDto: {
@@ -459,7 +459,7 @@
                 console.log(data);
 
                 // AJAX 요청 보내기 -> axios로 바꾸기
-                axios.post('/product/admin/' + document.getElementById('productId').value, data, {
+                axios.post('/product/admin', data, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

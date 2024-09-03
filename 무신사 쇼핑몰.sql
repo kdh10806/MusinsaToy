@@ -53,6 +53,7 @@ create table if not exists category(
 create table if not exists product(
 	product_id VARCHAR(25) PRIMARY KEY not null,
     product_description_id VARCHAR(25) not null,
+    brand_product_code VARCHAR(25),
     category_id VARCHAR(3) not null,
     brand_id VARCHAR(25) not null,
     name VARCHAR(50) NOT NULL,

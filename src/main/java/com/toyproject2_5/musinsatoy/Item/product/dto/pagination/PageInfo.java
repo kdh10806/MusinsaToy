@@ -11,6 +11,9 @@ import java.util.HashMap;
 @ToString
 public class PageInfo {
 
+    //5의 배수 씩 보여주는 페이지.
+    //첫번째 페이지와 맨 마지막 페이지로 이동 없음.
+
     private ProductRequestPageDto paging;
     private int productTotalCount;
     private int endPage;

@@ -30,9 +30,10 @@ public class ProductRegisterDto {
     */
     //중복되는 상품 ID 가 있는지 확인.(등록자가 상품ID 등록?)
     //실제 상품ID를 받고, 실제 상품 ID 뒤에 번호 등 추가하기.
-    @Size(min = 10, max = 25, message = "상품 ID는 10글자 이상, 25자 이하 이어야합니다.")
-    @NotNull(message = "상품 ID는 10글자 이상, 25자 이하 이어야합니다.")
     private String productId;
+
+    @NotNull(message = "상품 ID는 10글자 이상, 25자 이하 이어야합니다.")
+    private String brandProductCode;
 
     //몇글자 이상으로 받을지 생각
     @Size(min =3 , max =25, message = "상품 이름은 3글자 이상, 25자 미만 이어야 합니다.")
@@ -106,6 +107,7 @@ public class ProductRegisterDto {
     public static Product toProduct(ProductRegisterDto productRegisterDto , String repFileCode){
         return Product.builder()
                 .productId(productRegisterDto.getProductId())
+                .brandProductCode(productRegisterDto.getBrandProductCode())
                 .productDescriptionId(productRegisterDto.getProductDescriptionDto().getProductDescriptionId())
                 .categoryId(productRegisterDto.getCategoryId())
                 .brandId(productRegisterDto.getBrandId())

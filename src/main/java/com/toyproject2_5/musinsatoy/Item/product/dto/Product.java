@@ -21,6 +21,9 @@ public class Product {
 
     private String productId;
 
+
+    private String brandProductCode;
+
     //fk
     private String productDescriptionId;
 

@@ -333,6 +333,7 @@
     <insert id="insert" parameterType="com.toyproject2_5.musinsatoy.Item.product.dto.Product">
         INSERT INTO product (product_id,
                              product_description_id,
+                             brand_product_code,
                              category_id,
                              brand_id,
                              name,
@@ -343,7 +344,8 @@
                              modify_datetime,
                              register_manager
                              )
-        VALUES ( #{productId}, #{productDescriptionId}, #{categoryId}, #{brandId}
+        VALUES ( #{productId}, #{productDescriptionId}, #{brandProductCode}
+               ,#{categoryId}, #{brandId}
                , #{name}, #{repImg}, #{price}
                , #{productOptionDepth}
                , NOW(), NOW()

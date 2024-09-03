@@ -3,6 +3,7 @@ package com.toyproject2_5.musinsatoy.Item.product.controller;
 import com.toyproject2_5.musinsatoy.Item.category.dto.Category;
 import com.toyproject2_5.musinsatoy.Item.category.dto.SubCategoryDto;
 import com.toyproject2_5.musinsatoy.Item.category.service.CategoryService;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.Page;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.EditPageInfo;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.ProductEditPageDto;
@@ -173,7 +174,9 @@ public class ProductController {
     * 미완
     * */
     @GetMapping("/search")
-    public String searchPage(Model model){
+    public String searchPage(Model model, @PathVariable SearchProductDto searchDto){
+
+        productService.searchProduct(searchDto);
 
 
         return "product/searchPage";

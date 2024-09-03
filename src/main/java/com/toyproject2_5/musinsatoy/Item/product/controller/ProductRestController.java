@@ -1,6 +1,9 @@
 package com.toyproject2_5.musinsatoy.Item.product.controller;
 
+import com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductUpdateDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.SearchPageDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.cursor.ProductCursorPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.service.ProductService;
 import com.toyproject2_5.musinsatoy.Item.brand.service.BrandService;
@@ -57,7 +60,7 @@ public class ProductRestController {
     *  상품 등록시 이미지에 대한 presigned url 경로를 반환해줌. -> 프론트에서 모든 url에 대해 비동기 동작 할 수 있도록 확인.
     * */
     @Operation(summary = "상품 등록", description = "상품 등록 Dto, 상품 대표 이미지, 상품 설명 이미지 , 상품 이미지를 매개변수로 받아온다.")
-    @PostMapping(value = {"/admin/{productId}"}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = {"/admin"}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> presignedUrlRegister(@Valid @RequestBody ProductRegisterDto productRegisterDto) {
 
         //나중에 보고 브랜드 조회 및 Service에 같이 넣어주기(동시성 - readonly 가 아니도록 하는게 맞는 것 같음)
@@ -149,6 +152,15 @@ public class ProductRestController {
 
         //List안에 내용이 null이면 더이상 안보여 주도록 프론트에서 설정하기.
         return cursorList;
+    }
+
+    //https://api.musinsa.com/api2/dp/v1/plp/goods?gf=A&keyword=%EB%82%98%EC%9D%B4%ED%82%A4&sortCode=POPULAR&page=104&size=10&caller=SEARCH
+    @Operation()
+    @GetMapping()
+    public ResponseEntity<?> searchKeyword(SearchProductDto searchProductDto){
+        SearchPageDto data =  productService.searchProduct(searchProductDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(searchProductDto);
     }
 
 

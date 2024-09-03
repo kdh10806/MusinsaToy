@@ -3,6 +3,7 @@ package com.toyproject2_5.musinsatoy.CS.FAQ.controller;
 import com.toyproject2_5.musinsatoy.CS.FAQ.dto.FaqDto;
 import com.toyproject2_5.musinsatoy.CS.FAQ.service.FaqService;
 import com.toyproject2_5.musinsatoy.ETC.FaqSearchCondition;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 //TODO
-//1. 로그인 기능 추가되면 id여부, admin여부 - role=의 attribute를 session에서 가져온다.
 //2. 공통 예외처리 Exception Handler
 //3. 전역 예외 처리 GlobalCatcher(@ControllerAdvice)
 
@@ -27,22 +27,46 @@ public class FaqController {
     //1.입력화면
     //1-1.입력화면 이동 - GET
     @GetMapping("/insert")
-    public String insert(RedirectAttributes rattr){
+    public String insert(HttpSession session, Model model, RedirectAttributes rattr){
         try{
+            //1) 로그인 유무 판별
+            if(session.getAttribute("id") == null) {
+                rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+                return "redirect:/member/login";
+            }
+            //2) session에서 is_admin "A"인지 판별
+            if(!(session.getAttribute("isAdmin").equals("A"))){
+                rattr.addFlashAttribute("msg", "NOT_ADMIN");
+                return "redirect:/cs/faq/list";
+            }
+            //3) session에서 id가져와서 저장
+            String admin_id = (String)session.getAttribute("id");
+            //4) Model 에 id 저장
+            model.addAttribute("admin_id", admin_id);
 
             return "FAQ/insert";
         } catch( Exception e ){
             e.printStackTrace(); //에러 내용 출력
-            rattr.addFlashAttribute("msg", "NOT_ADMIN"); //에러 메시지
+            rattr.addFlashAttribute("msg", "FAQ_INSERT_MV_ERROR"); //에러 메시지
             return "redirect:/cs/faq/list";
         }
     }
 
     //1-2.입력수행 - POST
-    //TODO) admin 판별
     @PostMapping("/insert")
-    public String insert(FaqDto faqDto, Model m, RedirectAttributes rattr){
+    public String insert(HttpSession session, FaqDto faqDto, Model m, RedirectAttributes rattr){
         try{
+            //1) 로그인 유무 판별
+            if(session.getAttribute("id") == null) {
+                rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+                return "redirect:/member/login";
+            }
+            //2) session에서 is_admin "A"인지 판별
+            if(!(session.getAttribute("isAdmin").equals("A"))){
+                rattr.addFlashAttribute("msg", "NOT_ADMIN");
+                return "redirect:/cs/faq/list";
+            }
+
             if(faqService.insert(faqDto) != 1) throw new Exception("Service.insert() failed");
             rattr.addFlashAttribute("msg", "INSERT_OK");
 
@@ -77,7 +101,7 @@ public class FaqController {
     public String list(Model m){
         try {
             List<FaqDto> faqDtoDescList = faqService.selectAllCatDesc();
-            if(faqDtoDescList.isEmpty()) throw new Exception("Service.DescList() empty");
+//            if(faqDtoDescList.isEmpty()) throw new Exception("Service.DescList() empty");
             m.addAttribute("faqDtoDescList", faqDtoDescList);
         } catch(Exception e ) {
             e.printStackTrace();
@@ -139,11 +163,28 @@ public class FaqController {
     //4. 수정
     //4-1. 수정화면 이동 - GET
     @GetMapping("/update/{id}")
-    public String update(@PathVariable("id") Integer id, Model m, RedirectAttributes rattr){
+    public String update(@PathVariable("id") Integer faq_id, HttpSession session, Model m, RedirectAttributes rattr){
         try{
-            FaqDto faqDto = faqService.selectById(id);
+            //1) 로그인 유무 판별
+            if(session.getAttribute("id") == null) {
+                rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+                return "redirect:/member/login";
+            }
+            //2) session에서 is_admin "A"인지 판별
+            if(!(session.getAttribute("isAdmin").equals("A"))){
+                rattr.addFlashAttribute("msg", "NOT_ADMIN");
+                return "redirect:/cs/faq/list";
+            }
+            //3) session에서 id가져와서 저장
+            String admin_id = (String)session.getAttribute("id");
+
+            FaqDto faqDto = faqService.selectById(faq_id);
             if(faqDto == null) throw new Exception("Service.update() selectById failed");
+
+            //4) admin_id, faqDto model 추가
+            m.addAttribute("admin_id", admin_id);
             m.addAttribute("faqDto", faqDto);
+
             return "FAQ/update";
         } catch (Exception e){
             e.printStackTrace();
@@ -154,8 +195,19 @@ public class FaqController {
 
     //4-2. 수정수행 - POST
     @PostMapping("/update/{id}")
-    public String update(FaqDto faqDto, Model m, RedirectAttributes rattr){
+    public String update(FaqDto faqDto, HttpSession session, Model m, RedirectAttributes rattr){
         try{
+            //1) 로그인 유무 판별
+            if(session.getAttribute("id") == null) {
+                rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+                return "redirect:/member/login";
+            }
+            //2) session에서 is_admin "A"인지 판별
+            if(!(session.getAttribute("isAdmin").equals("A"))){
+                rattr.addFlashAttribute("msg", "NOT_ADMIN");
+                return "redirect:/cs/faq/list";
+            }
+
             if(faqService.update(faqDto) != 1) throw new Exception("Service.update() failed");
             rattr.addFlashAttribute("msg", "UPDATE_OK");
             return "redirect:/cs/faq/{id}";
@@ -169,9 +221,20 @@ public class FaqController {
 
     //5. 삭제 - GET
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Integer id, RedirectAttributes rattr){
+    public String delete(@PathVariable("id") Integer id, HttpSession session, RedirectAttributes rattr){
         try{
-            if(faqService.delete(id) != 1) throw new Exception("Service.delete() failed");
+            //1) 로그인 유무 판별
+            if(session.getAttribute("id") == null) {
+                rattr.addFlashAttribute("msg", "NOT_SIGNED_IN");
+                return "redirect:/member/login";
+            }
+            //2) session에서 is_admin "A"인지 판별
+            if(!(session.getAttribute("isAdmin").equals("A"))){
+                rattr.addFlashAttribute("msg", "NOT_ADMIN");
+                return "redirect:/cs/faq/list";
+            }
+
+            if(faqService.delete(id, (String)session.getAttribute("id")) != 1) throw new Exception("Service.delete() failed");
             rattr.addFlashAttribute("msg", "DELETE_OK");
             return "redirect:/cs/faq/list";
         } catch (Exception e) {

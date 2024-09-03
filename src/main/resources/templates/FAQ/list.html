@@ -158,5 +158,33 @@
         // 추가적인 카테고리에 대한 로직 추가 가능
     });
 </script>
+<script th:inline="javascript">
+    let msg = [[${msg}]];
+    if(msg === "INSERT_OK") {
+        alert("정상적으로 등록되었습니다.");
+    }
+    if(msg === "DELETE_OK") {
+        alert("정상적으로 삭제되었습니다.");
+    }
+    if(msg === "LIST_ERR") {
+        alert("표시할 내용이 없습니다.");
+    }
+    if(msg === "READ_ERR") {
+        alert("해당게시물이 존재하지 않습니다.");
+    }
+    if(msg === "UPDATE_MV_ERR") {
+        alert("업데이트할 게시물을 찾지 못했습니다.");
+    }
+    if(msg === "NOT_ADMIN") {
+        alert("권한이 없습니다.");
+    }
+    if(msg === "NOT_SIGNED_IN") {
+        alert("로그인을 해주세요.");
+    }
+    if(msg === "FAQ_INSERT_MV_ERROR"){
+        alert("입력을 수행할 수 없습니다. 다시 시도해주십시오.")
+    }
+
+</script>
 </body>
 </html>

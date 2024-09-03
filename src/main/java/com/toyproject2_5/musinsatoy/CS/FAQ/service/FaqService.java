@@ -33,7 +33,7 @@ public interface FaqService {
     int update(FaqDto faqDto) throws Exception;
 
     //6. 삭제 - delete(), is_post를 "N"으로 변경
-    int delete(Integer id) throws Exception;
+    int delete(Integer id, String modifier_id) throws Exception;
 
     //7. 검색
     //7-1. 키워드로 제목, 내용에서 검색 - searchSelect()

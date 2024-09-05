@@ -8,7 +8,7 @@
             values(#{faq_category_code}, #{faq_subcategory_id}, #{faq_title}, #{faq_content}, #{writer}, #{is_post})
     </insert>
 <!--read-->
-    <!--모든데이터select(Test용)-->
+    <!--모든데이터select(API)-->
     <select id="selectAllAsc" resultType="com.toyproject2_5.musinsatoy.CS.FAQ.dto.FaqDto">
         select faq_id, faq_category_code, faq_subcategory_id, faq_title, faq_content, create_datetime, modify_datetime,
             writer, modifier, is_post

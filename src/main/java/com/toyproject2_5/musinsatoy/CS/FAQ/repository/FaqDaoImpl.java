@@ -46,7 +46,7 @@ public class FaqDaoImpl implements FaqDao {
         return sql.selectList(NAMESPACE+"selectAllCatDesc");
     }
 
-    //4-1. selectAllAsc(테스트용)
+    //4-1. selectAllAsc(API)
     @Override
     public List<FaqDto> selectAllAsc() throws Exception {
         return sql.selectList(NAMESPACE+"selectAllAsc");

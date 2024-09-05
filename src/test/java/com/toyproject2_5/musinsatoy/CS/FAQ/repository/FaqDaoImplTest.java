@@ -92,6 +92,14 @@ class FaqDaoImplTest {
         faqList.forEach(faqDto -> System.out.println("faqDto = " + faqDto));
     }
 
+    //4-1. selectAllAsc() 테스트
+    @Test
+    @Transactional
+    public void selectAllAsc_test_success() throws Exception {
+        List<FaqDto> faqList = faqDao.selectAllAsc();
+        faqList.forEach(faqDto -> System.out.println("faqDto = " + faqDto));
+    }
+
     //5.selectAllCatCodeDesc 테스트
     //5-1. N개 입력후 category_code로 필터링한 데이터 제대로 들고오는지
     //5-2. 한개 입력 후 category_code와 카테고리명이 제대로 매치되는지

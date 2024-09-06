@@ -3,11 +3,9 @@ package com.toyproject2_5.musinsatoy.Item.product.dao;
 import com.toyproject2_5.musinsatoy.Item.product.dto.*;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.ProductEditPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.cursor.ProductCursorPageDto;
-import com.toyproject2_5.musinsatoy.Item.product.dto.*;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -25,12 +23,6 @@ public class ProductDaoMysql implements ProductDao {
     @Override
     public int insert(Product product) throws Exception{
         return sqlSession.insert(namespace+"insert", product);
-    }
-
-    @Override
-    public int insertTest(HashMap<String, Object> testMap) throws Exception {
-
-        return sqlSession.insert(namespace + "insertTest", testMap);
     }
 
     @Override
@@ -57,6 +49,16 @@ public class ProductDaoMysql implements ProductDao {
     @Override
     public int countProductAdminList(ProductEditPageDto productEditPageDto) throws Exception {
         return sqlSession.selectOne(namespace + "countProductAdminList", productEditPageDto);
+    }
+
+    @Override
+    public int countSearchProduct(SearchProductDto searchProductDto) throws Exception{
+        return sqlSession.selectOne(namespace + "countSearchProduct", searchProductDto);
+    }
+
+    @Override
+    public List<ProductPageDto> findProductByKeyword(SearchProductDto searchProductDto) throws Exception {
+        return sqlSession.selectList(namespace + "findProductByKeyword", searchProductDto);
     }
 
     @Override

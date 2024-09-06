@@ -4,6 +4,7 @@ import com.toyproject2_5.musinsatoy.Item.product.dto.*;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.ProductEditPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.cursor.ProductCursorPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.*;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +15,6 @@ import java.util.List;
 public interface ProductDao{
 
     int insert(@Param("product") Product product) throws Exception;
-    int insertTest(HashMap<String, Object> testMap ) throws Exception;
 
 
     String findNameById(@Param("productId") String productId)throws Exception;
@@ -24,6 +24,9 @@ public interface ProductDao{
 
     List<ProductAdminList> findProductAdminList(ProductEditPageDto productEditPageDto) throws Exception;
     int countProductAdminList(ProductEditPageDto productEditPageDto) throws Exception;
+
+    int countSearchProduct(SearchProductDto searchProductDto)throws Exception;
+    List<ProductPageDto> findProductByKeyword(SearchProductDto searchProductDto) throws Exception;
 
     List<ProductCursorPageDto> findCursorList(HashMap<String, Object> map) throws Exception;
     List<ProductCursorPageDto> findCursorPageListOrderByRank(HashMap<String, Object> map) throws Exception;

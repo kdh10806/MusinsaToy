@@ -61,6 +61,72 @@
             WHERE product_id = #{productId}
     </select>
 
+    <select id="countSearchProduct"  parameterType="com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto" resultType ="Integer">
+        SELECT count(*)
+            from product p
+            INNER JOIN brand b
+            ON p.brand_id = b.brand_id
+            <where>
+                <if test="keyword != null"> p.name LIKE CONCAT('%', #{keyword},'%') </if>
+                <if test="categoryId != null"> AND p.category_id =#{categoryId} </if>
+            </where>
+            <choose>
+                <when test="sortCode eq 'NEW'.toString()">
+                    Order By p.create_datetime DESC , p.product_id DESC
+                </when>
+                <when test="sortCode eq 'RANKING'.toString()">
+                    Order By p.star_rating DESC, p.product_id DESC
+                </when>
+                <when test="sortCode eq 'SALES'.toString()">
+                    Order By p.sales_quantity DESC, p.product_id DESC
+                </when>
+                <when test="sortCode eq 'CHEAP'.toString()">
+                    Order By p.price ASC, p.product_id DESC
+                </when>
+                <otherwise>
+                    Order By p.product_id DESC
+                </otherwise>
+            </choose>
+    </select>
+    <select id="findProductByKeyword" parameterType="com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto" resultType="com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto">
+        SELECT p.product_id
+        , p.name as productName
+        , p.event_price
+        , p.price
+        , p.rep_img
+        , p.star_rating
+        , p.like_count
+        , p.brand_id
+        , b.name as brandName
+            from product p
+            INNER JOIN brand b
+            ON p.brand_id = b.brand_id
+            <where>
+                <if test="keyword != null"> p.name LIKE CONCAT('%', #{keyword},'%') </if>
+                <if test="categoryId != null"> AND p.category_id =#{categoryId} </if>
+            </where>
+        <choose>
+            <when test="sortCode eq 'NEW'.toString()">
+                Order By p.create_datetime DESC , p.product_id DESC
+            </when>
+            <when test="sortCode eq 'RANKING'.toString()">
+                Order By p.star_rating DESC, p.product_id DESC
+            </when>
+            <when test="sortCode eq 'SALES'.toString()">
+                Order By p.sales_quantity DESC, p.product_id DESC
+            </when>
+            <when test="sortCode eq 'CHEAP'.toString()">
+                Order By p.price ASC, p.product_id DESC
+            </when>
+            <otherwise>
+                Order By p.product_id DESC
+            </otherwise>
+        </choose>
+        limit ${size}
+        offset ${offset}
+
+    </select>
+
 
     <select id="findProductDetailDtoById" parameterType="String" resultType="com.toyproject2_5.musinsatoy.Item.product.dto.ProductDetailDto">
         SELECT
@@ -89,6 +155,7 @@
 
 
 <!-- 커서 기반  -->
+    <!-- 이거 조짐. 너무 많다 중복이. -->
     <select id="cursorPaging" parameterType="hashMap"  resultType="com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto">
         SELECT p.product_id as productId
         , p.name as productName

@@ -78,24 +78,27 @@
             padding: 20px;
             background: white;
             width: 650px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /*border-radius: 8px;*/
+            /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
             text-align: justify;
         }
         .badge {
             margin-right: 10px;
         }
         .price {
-            font-size: 1.5em;
+            margin-top: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            font-size: 15px;
             font-weight: bold;
-            color: #28a745;
+            color: black;
         }
         .quantity {
             margin-top: 15px;
         }
         .total-price {
             margin-top: 20px;
-            font-size: 1.75em;
+            font-size: 15px;
             font-weight: bold;
             color: #dc3545;
         }
@@ -106,9 +109,7 @@
             margin-top: 30px;
         }
         .description img {
-            margin-top: 15px;
             width: 650px;
-            border-radius: 8px;
         }
 
         .top-bar {
@@ -213,7 +214,7 @@
                 <img id="mainImage" class="main-img" th:src="@{${productDetail.repImg}}" th:alt="${productDetail.getName()}">
             </div>
             <div th:each="itemImg : ${productDetail.productImages}" class="swiper-slide">
-                <img th:src="@{${itemImg.path}}" class="rounded" width="800">
+                <img th:src="@{${itemImg.path}}"  width="800">
             </div>
 
         </div>
@@ -229,20 +230,19 @@
 
 
     <div class="product-details">
-        <div class="d-flex justify-content-between align-items-center">
-
-            <h1 class="h3" th:text="${productDetail.getName()}"></h1>
-            <a><p th:text="${productDetail.getBrandName()}"></p></a><br>
+            <hr>
+        <div class="d-flex justify-content-between" style="flex-direction: column; margin-left: 20px" >
+            <a style="text-decoration-line: none; color: black" th:href="|@{/brand/}${productDetail.brandId}|"><p style="margin-bottom: 0" th:text="${productDetail.getBrandName()}"></p></a>
+        </div>
+            <hr>
+        <div class="d-flex justify-content-between" style="flex-direction: column; margin-top: 10px">
             <a><p th:text="${productDetail.getCategoryName()}"></p></a>
-            <span th:if="${productDetail.getProductStatus().toString().equals('SELL')}" class="badge badge-success">
-                    판매중
-                </span>
-            <span th:unless="${productDetail.getProductStatus().toString().equals('SELL')}" class="badge badge-danger">
-                    품절
+            <h5 class="h5" th:text="${productDetail.getName()}"></h5>
+            <span th:if="${productDetail.eventPrice}" class="badge badge-success" style="background: #222222; width: 40px">
+                    세일
                 </span>
         </div>
-        <hr>
-        <div class="price" id="price" th:text="${productDetail.getPrice()}"></div>
+        <div class="price" id="price" th:text="|${productDetail.getPrice()} 원|"></div>
         <div id="option-container"></div>
 
         <div class="input-group" id="count-div">
@@ -251,14 +251,14 @@
             </div>
             <input type="number" class="form-control" name="count" id="count" value="1" min="1"  style="background: white" readonly>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="incrementCount" onclick="incrementCount()">+</button>
+                <button class="btn btn-outline-secondary"  type="button" id="incrementCount" onclick="incrementCount()">+</button>
                 <button class="btn btn-outline-secondary" type="button" id="decrementCount" onclick="decrementCount()">-</button>
             </div>
         </div>
 
         <div class="total-price mt-3" id="totalPrice"></div>
         <div class="buttons mt-3">
-            <button type="button" class="btn btn-primary" th:if="${productDetail.getProductStatus().toString().equals('SELL')}" onclick="addCart()">장바구니 담기</button>
+            <button type="button" class="btn btn-primary" style="background: black; border: none;" th:if="${productDetail.getProductStatus().toString().equals('SELL')}" onclick="addCart()">장바구니 담기</button>
             <button type="button" class="btn btn-success" th:if="${productDetail.getProductStatus().toString().equals('SELL')}" onclick="order()">주문하기</button>
             <button type="button" class="btn btn-secondary" th:unless="${productDetail.getProductStatus().toString().equals('SELL')}">품절</button>
             <p th:text="|별점 = ${productDetail.getStarRating()}|/10"></p>
@@ -273,7 +273,7 @@
         <h4>상품 상세 설명</h4>
         <p th:text="${productDetail.productDescription.getDescription()}"></p>
         <div th:each="itemImg : ${productDetail.descriptionImages}">
-            <img th:src="@{${itemImg.path}}" class="rounded">
+            <img th:src="@{${itemImg.path}}" >
         </div>
     </div>
     <div class="fixed-footer">

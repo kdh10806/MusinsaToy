@@ -60,6 +60,9 @@
             color: #fff;
             border-color: #007bff;
         }
+        p{
+            margin : 0;
+        }
     </style>
 </head>
 <body>
@@ -68,11 +71,11 @@
         <h1 class="text-center mb-4">브랜드 목록</h1>
         <div class="row">
             <div class="col-md-4 col-lg-4 brand-item" th:each="brand : ${brands}">
-                <a th:href="@{/brand/{id}(id=${brand.brandId})}" class="card brand-card">
+                <a th:href="@{/brand/{id}(id=${brand.brandId})}" class="card brand-card" style="text-decoration-line: none; color: black ">
                     <img th:src="@{${brand.img}}" alt="브랜드 이미지" class="card-img-top brand-img">
                     <div class="card-body text-center">
                         <h5 class="card-title" th:text="${brand.name}"></h5>
-                        <h5 class="card-title" th:text="|판매 개수 : ${brand.salesCount}|"></h5>
+                        <h6 class="card-title" th:text="|판매 개수 : ${brand.salesCount}|"></h6>
                     </div>
                 </a>
             </div>
@@ -94,4 +97,5 @@
 
     </div>
 </div>
+</body>
 </html>

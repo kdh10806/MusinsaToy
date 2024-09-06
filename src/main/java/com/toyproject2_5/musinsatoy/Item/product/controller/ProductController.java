@@ -14,9 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -141,9 +139,9 @@ public class ProductController {
         return "product/adminProductList";
     }
 
-    @GetMapping("imagetest")
+    @GetMapping("test")
     public String S3ImageTest(){
-        return "test/ImageTest";
+        return "test";
     }
 
 
@@ -174,13 +172,14 @@ public class ProductController {
     * 미완
     * */
     @GetMapping("/search")
-    public String searchPage(Model model, @PathVariable SearchProductDto searchDto){
+    public String searchPage(Model model, @ModelAttribute @RequestParam String keyword) throws Exception {
 
-        productService.searchProduct(searchDto);
-
-
+        model.addAttribute("category",categoryService.findSubCategory("C01"));
         return "product/searchPage";
     }
+
+
+
 
 
 

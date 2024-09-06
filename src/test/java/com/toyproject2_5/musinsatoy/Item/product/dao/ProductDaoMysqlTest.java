@@ -2,12 +2,16 @@ package com.toyproject2_5.musinsatoy.Item.product.dao;
 
 import com.toyproject2_5.musinsatoy.Item.product.dto.Product;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductDetailDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductUpdateDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -101,5 +105,23 @@ class ProductDaoMysqlTest {
 
 
         String deletename =productDao.findNameById(product.getProductId());
+    }
+
+    @Test
+    @DisplayName("키워드 상품 찾기")
+    public void keywordSearch() throws Exception {
+        SearchProductDto searchProductDto = new SearchProductDto();
+
+        searchProductDto.setSize(20);
+        searchProductDto.setPage(2);
+        searchProductDto.setKeyword("티셔츠");
+
+        searchProductDto.calOffset();
+        List<ProductPageDto> list = productDao.findProductByKeyword(searchProductDto);
+        System.out.println(productDao.countSearchProduct(searchProductDto));
+        list.forEach(System.out::println);
+
+        list.forEach(x->assertTrue(x.getProductName().contains(searchProductDto.getKeyword())));
+
     }
 }

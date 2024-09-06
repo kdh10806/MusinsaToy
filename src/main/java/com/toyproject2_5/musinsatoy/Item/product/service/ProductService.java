@@ -43,7 +43,6 @@ public class ProductService {
     private final S3FileService s3FileService;
     private final CategoryDaoMysql categoryDao;
     private final StockDaoMysql stockDao;
-    private final ReturnTypeParser genericReturnTypeParser;
 
 
     //상품 등록.
@@ -442,7 +441,7 @@ public class ProductService {
     *  키워드로 상품 검색 시.
     * */
     @Transactional(readOnly = true)
-    public SearchPageDto searchProduct(SearchProductDto searchDto) {
+    public SearchPageDto searchProduct(SearchProductDto searchDto) throws Exception {
         searchDto.calOffset();
 
         HasNextPageInfo data = new HasNextPageInfo();
@@ -452,9 +451,16 @@ public class ProductService {
         data.setSize(searchDto.getSize());
 
 
+        data.calNext(productDao.countSearchProduct(searchDto));
+
+        List<ProductPageDto> productPageDtolist = productDao.findProductByKeyword(searchDto);
+
+
+
+
         //List받아와서 data.setList(productDao.findByKeyword(searchDto)));
 
-        return new SearchPageDto();
+        return new SearchPageDto(data, productPageDtolist);
     }
 }
 

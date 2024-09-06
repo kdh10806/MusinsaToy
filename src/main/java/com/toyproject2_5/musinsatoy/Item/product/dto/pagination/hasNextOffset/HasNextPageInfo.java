@@ -25,5 +25,11 @@ public class HasNextPageInfo {
     private int size;
     private int totalPages;
 
+    public void calNext(int totalCounts){
+        this.totalCounts = totalCounts;
+        this.totalPages = (int) Math.ceil((double) totalCounts /size);
+        hasNextPage = (page!=totalPages);
+    }
+
 
 }

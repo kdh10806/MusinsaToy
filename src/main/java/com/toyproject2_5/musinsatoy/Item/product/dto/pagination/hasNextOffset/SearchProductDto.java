@@ -6,7 +6,6 @@ import lombok.*;
 @Getter
 @ToString
 @AllArgsConstructor
-@NoArgsConstructor
 public class SearchProductDto {
     //Getparameter 로 받아올 값.
 
@@ -21,5 +20,9 @@ public class SearchProductDto {
 
     public void calOffset(){
         offset = (page - 1) * size;
+    }
+    public SearchProductDto(){
+        this.page =1;
+        this.size =10;
     }
 }

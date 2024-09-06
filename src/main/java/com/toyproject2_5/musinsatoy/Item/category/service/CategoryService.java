@@ -34,4 +34,11 @@ public class CategoryService {
         return categoryList;
     }
 
+    // Keyword 검색 화면에 출력될 상품 카테고리.
+    // 스크롤 많이할 수 있게 범위 크게하기.-> 스크롤 확인.
+    public void secondAllCategory() throws Exception {
+    //select * from category c1 Right JOIN (select * from category WHERE parent_category_id ='C01') c2 ON c1.parent_category_id=c2.category_id;
+
+    }
+
 }

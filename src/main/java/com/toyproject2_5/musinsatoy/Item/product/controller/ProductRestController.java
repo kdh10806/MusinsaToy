@@ -1,6 +1,5 @@
 package com.toyproject2_5.musinsatoy.Item.product.controller;
 
-import com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductUpdateDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.SearchPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
@@ -9,6 +8,8 @@ import com.toyproject2_5.musinsatoy.Item.product.service.ProductService;
 import com.toyproject2_5.musinsatoy.Item.brand.service.BrandService;
 import com.toyproject2_5.musinsatoy.Item.category.service.CategoryService;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductRegisterDto;
+import com.toyproject2_5.musinsatoy.Item.product.service.chatbot.ChatBotClientService;
+import com.toyproject2_5.musinsatoy.Item.product.service.chatbot.ClientMessage;
 import com.toyproject2_5.musinsatoy.Item.productDescriptionImg.dto.ImagePathDto;
 import com.toyproject2_5.musinsatoy.ETC.util.S3FileService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -156,11 +158,13 @@ public class ProductRestController {
 
     //https://api.musinsa.com/api2/dp/v1/plp/goods?gf=A&keyword=%EB%82%98%EC%9D%B4%ED%82%A4&sortCode=POPULAR&page=104&size=10&caller=SEARCH
     @Operation()
-    @GetMapping()
-    public ResponseEntity<?> searchKeyword(SearchProductDto searchProductDto){
+    @GetMapping("/keyword")
+    public ResponseEntity<?> searchKeyword(SearchProductDto searchProductDto) throws Exception {
+
+        //SearchPageDto의 HasNextPageInfo에서 hasNextPage가 false이면 프론트에서 요청 보내지 않기로.
         SearchPageDto data =  productService.searchProduct(searchProductDto);
 
-        return ResponseEntity.status(HttpStatus.OK).body(searchProductDto);
+        return ResponseEntity.status(HttpStatus.OK).body(data);
     }
 
 
@@ -219,6 +223,21 @@ public class ProductRestController {
         //s3FileServivce에서 확장자 검증하기 - png, jpg 만 가능하도록
         return new ResponseEntity<>(s3FileService.getPreSignedUrl(decodedPath), HttpStatus.OK);
     }
+
+
+    /*
+    *
+    *
+    * */
+    @PostMapping("/chatbot")
+    public Mono<?> chatbot(@RequestBody ClientMessage message) {
+        ChatBotClientService client = new ChatBotClientService();
+
+        return client.chatBot(message.getMessage());
+    }
+
+
+
 
 
 }

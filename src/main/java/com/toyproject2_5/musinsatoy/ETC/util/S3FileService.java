@@ -320,6 +320,9 @@ public class S3FileService {
 
 
     public String plusBucketPath(String imgPath) {
+        if(imgPath.contains("https")){
+            return imgPath;
+        }
         return bucketPath+imgPath;
     }
 }

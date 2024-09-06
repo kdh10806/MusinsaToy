@@ -1,11 +1,15 @@
 package com.toyproject2_5.musinsatoy.Item.product.service;
 
+import com.toyproject2_5.musinsatoy.Item.product.dao.ProductDao;
+import com.toyproject2_5.musinsatoy.Item.product.dao.ProductDaoMysql;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductAdminList;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductDetailDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.ProductRegisterDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.SearchPageDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.option.OptionDBregisterDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.EditPageInfo;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.adminEdit.ProductEditPageDto;
+import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.hasNextOffset.SearchProductDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.stock.StockRegisterDto;
 import com.toyproject2_5.musinsatoy.Item.productDescription.dto.ProductDescriptionDto;
 import com.toyproject2_5.musinsatoy.Item.productDescriptionImg.dto.ImagePathDto;
@@ -30,6 +34,8 @@ class ProductServiceTest {
     private ProductService productService;
     @Autowired
     private StockService stockService;
+    @Autowired
+    private ProductDao productDaoMysql;
 
 
     @Test
@@ -196,6 +202,8 @@ class ProductServiceTest {
         System.out.println(editPageInfo);
         list.forEach(System.out::println);
     }
+
+
 
 
 

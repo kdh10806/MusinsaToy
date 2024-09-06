@@ -34,7 +34,7 @@ public class FaqServiceImpl implements FaqService {
     }
 
     //4. 리스팅
-    //4-1. FAQ 리스트 오름차순(테스트용) - selectAllAsc()
+    //4-1. FAQ 리스트 오름차순(API) - selectAllAsc()
     @Override
     public List<FaqDto> selectAllAsc() throws Exception {
         return faqDao.selectAllAsc();

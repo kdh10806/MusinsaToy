@@ -1,6 +1,6 @@
 package com.toyproject2_5.musinsatoy.salesorder.dao;
 
-import com.toyproject2_5.musinsatoy.salesorder.dto.SalesOrder;
+import com.toyproject2_5.musinsatoy.salesorder.entity.SalesOrder;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -38,13 +38,8 @@ public class SalesOrderDaoMysql implements SalesOrderDao {
     }
 
     @Override
-    public SalesOrder selectOrder(String orderId) {
-        return session.selectOne(namespace+"selectOrder", orderId);
-    }
-
-    @Override
-    public SalesOrder selectOrderAndDetail(String orderId) {
-        return session.selectOne(namespace+"selectOrderAndDetail", orderId);
+    public SalesOrder selectByOrderId(String orderId) {
+        return session.selectOne(namespace+"selectByOrderId", orderId);
     }
 
     @Override
@@ -58,7 +53,7 @@ public class SalesOrderDaoMysql implements SalesOrderDao {
     }
 
     @Override
-    public int countOrder() {
+    public int count() {
         return session.selectOne(namespace+"countOrder");
     }
 

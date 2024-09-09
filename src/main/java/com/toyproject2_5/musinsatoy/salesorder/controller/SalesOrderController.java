@@ -1,6 +1,6 @@
 package com.toyproject2_5.musinsatoy.salesorder.controller;
 
-import com.toyproject2_5.musinsatoy.salesorder.dto.SalesOrder;
+import com.toyproject2_5.musinsatoy.salesorder.dto.SalesOrderDto;
 import com.toyproject2_5.musinsatoy.salesorder.service.SalesOrderService;
 import com.toyproject2_5.musinsatoy.ETC.util.pagination.CursorRequest;
 import com.toyproject2_5.musinsatoy.ETC.util.pagination.CursorResponse;
@@ -31,7 +31,7 @@ public class SalesOrderController {
      * 주문 세트(주문+상세들)를 추가
      */
     @PostMapping
-    public ResponseEntity<?> addOrder(@Valid @RequestBody SalesOrder order, HttpSession session) throws Exception{
+    public ResponseEntity<?> addOrder(@Valid @RequestBody SalesOrderDto order, HttpSession session) throws Exception{
         // 로그인 체크
 //        Integer memberId = checkLogin(session);
 //        if(memberId == null)
@@ -41,7 +41,7 @@ public class SalesOrderController {
 //            throw new AddException("주문자 정보가 올바르지 않습니다");
         service.addOrder(order);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(order.getOrderId());
+                .body(order.orderId());
     }
 
     /**
@@ -49,7 +49,7 @@ public class SalesOrderController {
      */
     @GetMapping("/details/{orderId}")
     public ResponseEntity<?> getOrderDetailByOrderId(@PathVariable String orderId, HttpSession session) throws Exception{
-        SalesOrder order = service.readOrderAndDetails(orderId);
+        SalesOrderDto order = service.getOrderDetails(orderId);
         // 상품 정보 불러오기 추가하기
         return ResponseEntity.status(HttpStatus.OK)
                 .body(order);
@@ -71,7 +71,7 @@ public class SalesOrderController {
 
         if(Objects.equals(key, "")) key = null; // String key validate
         CursorRequest<String> cursorRequest = new CursorRequest<>(key, size);
-        CursorResponse<SalesOrder> cursorResponse = service.getOrders(memberId, cursorRequest);
+        CursorResponse<SalesOrderDto> cursorResponse = service.getOrders(memberId, cursorRequest);
         // 상품 정보 불러오기 추가하기
         return ResponseEntity.status(HttpStatus.OK)
                 .body(cursorResponse);
@@ -81,10 +81,10 @@ public class SalesOrderController {
      * 주문 상태 변경하기
      */
     @PatchMapping
-    public ResponseEntity<?> updateOrderState(@Valid @RequestBody SalesOrder salesOrder) throws Exception{
+    public ResponseEntity<?> updateOrderState(@Valid @RequestBody SalesOrderDto salesOrder) throws Exception{
         service.updateOrderState(salesOrder);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(Map.of("orderId",salesOrder.getOrderId(), "stateCode", salesOrder.getStateCode()));
+                .body(Map.of("orderId",salesOrder.orderId(), "stateCode", salesOrder.stateCode()));
     }
 
 }

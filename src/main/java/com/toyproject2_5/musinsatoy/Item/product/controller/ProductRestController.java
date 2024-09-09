@@ -158,11 +158,14 @@ public class ProductRestController {
 
     //https://api.musinsa.com/api2/dp/v1/plp/goods?gf=A&keyword=%EB%82%98%EC%9D%B4%ED%82%A4&sortCode=POPULAR&page=104&size=10&caller=SEARCH
     @Operation()
-    @GetMapping("/keyword")
-    public ResponseEntity<?> searchKeyword(SearchProductDto searchProductDto) throws Exception {
+    @GetMapping("/searchScroll")
+    public ResponseEntity<?> searchKeyword(@ModelAttribute SearchProductDto searchProductDto) throws Exception {
+        System.out.println("asdfasdf"+searchProductDto.getKeyword());
 
         //SearchPageDto의 HasNextPageInfo에서 hasNextPage가 false이면 프론트에서 요청 보내지 않기로.
         SearchPageDto data =  productService.searchProduct(searchProductDto);
+
+        data.getProductList().forEach(System.out::println);
 
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }
@@ -202,7 +205,7 @@ public class ProductRestController {
 
 
     //url만 DB에 저장하면 이거 없어도 됨
-    //현재 사용 안함.
+    //현재 사용 안함. test
     @GetMapping("/getImage")
     public ResponseEntity<?> getimage() {
 

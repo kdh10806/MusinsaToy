@@ -23,6 +23,6 @@ public class SearchProductDto {
     }
     public SearchProductDto(){
         this.page =1;
-        this.size =10;
+        this.size =27;
     }
 }

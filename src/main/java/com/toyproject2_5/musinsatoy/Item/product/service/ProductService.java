@@ -455,7 +455,7 @@ public class ProductService {
 
         List<ProductPageDto> productPageDtolist = productDao.findProductByKeyword(searchDto);
 
-
+        productPageDtolist.forEach(x->x.setRepImg(s3FileService.plusBucketPath(x.getRepImg())));
 
 
         //List받아와서 data.setList(productDao.findByKeyword(searchDto)));

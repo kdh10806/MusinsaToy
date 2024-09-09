@@ -172,8 +172,7 @@ public class ProductController {
     * 미완
     * */
     @GetMapping("/search")
-    public String searchPage(Model model, @ModelAttribute @RequestParam String keyword) throws Exception {
-
+    public String searchPage(Model model, @ModelAttribute  SearchProductDto searchProductDto) throws Exception {
         model.addAttribute("category",categoryService.findSubCategory("C01"));
         return "product/searchPage";
     }

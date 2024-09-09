@@ -162,12 +162,18 @@ public class S3FileService {
 
     public String getPreSignedUrl( String fileName) {
 
+
         GeneratePresignedUrlRequest generatePresignedUrlRequest = getGeneratePreSignedUrlRequest(bucketName, fileName);
         URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
-        System.out.println("url = " + url);
         
         return URLDecoder.decode(url.toString(), StandardCharsets.UTF_8);
         
+    }
+
+    private boolean filterExtension(String filename) {
+
+        String extension=filename.substring(filename.lastIndexOf('.')+1).toLowerCase();
+        return (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png"));
     }
 
     /**
@@ -297,9 +303,13 @@ public class S3FileService {
         for (ProductDescriptionImgRegisterDto file : imageDtos) {
             String fileName = file.getFileName();
 
+            //Exceiption
             if (fileName == null || fileName.isEmpty()) {
-                //fileName이 없으면 임의로 만들어줌.
-                fileName = createUUID();
+                throw new RuntimeException("파일 이름을 작성하셔야 합니다.");
+            }
+
+            if(!filterExtension(fileName)){
+                throw new RuntimeException("이미지 파일 형식이 잘못 되었습니다.");
             }
 
             String filePath = isDescriptionImg

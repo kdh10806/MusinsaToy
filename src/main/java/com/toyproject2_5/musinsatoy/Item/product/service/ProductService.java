@@ -191,6 +191,15 @@ public class ProductService {
         return productDetailDto;
     }
 
+    /**
+     * SalesOrder -Controller에서 사용
+     * @param productId
+     * @return ProductPageDto
+     * @throws Exception
+     */
+    public ProductPageDto findProductPageDtoByProductId(String productId) throws Exception {
+        return productDao.findProductPageDtoByProductId(productId);
+    }
 
 
     /*

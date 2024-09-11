@@ -21,6 +21,7 @@ public interface ProductDao{
     String findRepImgById(@Param("productId") String productId)throws Exception;
 
     ProductDetailDto findProductDetailById(@Param("productId") String productId) throws Exception;
+    ProductPageDto findProductPageDtoByProductId(String productId) throws Exception;
 
     List<ProductAdminList> findProductAdminList(ProductEditPageDto productEditPageDto) throws Exception;
     int countProductAdminList(ProductEditPageDto productEditPageDto) throws Exception;

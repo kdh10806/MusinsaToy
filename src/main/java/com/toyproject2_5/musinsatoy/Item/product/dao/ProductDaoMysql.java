@@ -41,6 +41,12 @@ public class ProductDaoMysql implements ProductDao {
         return sqlSession.selectOne(namespace + "findProductDetailDtoById", productId);
     }
 
+    // 주문 리스트/상세에 사용
+    @Override
+    public ProductPageDto findProductPageDtoByProductId(String productId) throws Exception {
+        return sqlSession.selectOne(namespace + "findProductPageDtoByProductId", productId);
+    }
+
     @Override
     public List<ProductAdminList> findProductAdminList(ProductEditPageDto productEditPageDto) throws Exception {
         return sqlSession.selectList(namespace + "findProductAdminList", productEditPageDto);

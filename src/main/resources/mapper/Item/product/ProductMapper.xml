@@ -154,6 +154,23 @@
     </select>
 
 
+<!--    주문 리스트/상세 조회를 위해 추가 됨-->
+    <select id="findProductPageDtoByProductId" parameterType="String"  resultType="com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto">
+        SELECT p.product_id as productId
+        , p.name as productName
+        , p.price as price
+        , p.rep_img as repImg
+        , p.star_rating as starRating
+        , b.brand_id as brandId
+        , b.name as brandName
+        , p.sales_quantity as salesQuantity
+        FROM product p
+        INNER JOIN brand b
+        ON p.brand_id = b.brand_id
+        WHERE p.product_id = #{productId}
+    </select>
+
+
 <!-- 커서 기반  -->
     <!-- 이거 조짐. 너무 많다 중복이. -->
     <select id="cursorPaging" parameterType="hashMap"  resultType="com.toyproject2_5.musinsatoy.Item.product.dto.ProductPageDto">
@@ -170,7 +187,7 @@
         ON p.brand_id = b.brand_id
         <where>
             <if test="cursorProductId != null">
-                p.product id<![CDATA[ < ]]> #{cursorProductId}
+                p.product_id<![CDATA[ < ]]> #{cursorProductId}
             </if>
             <if test ="keyword != null">
                 AND p.name LIKE CONCAT('%', #{keyword},'%')

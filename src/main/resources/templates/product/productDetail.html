@@ -89,7 +89,7 @@
             margin-top: 10px;
             margin-left: 10px;
             margin-bottom: 10px;
-            font-size: 15px;
+            font-size: 20px;
             font-weight: bold;
             color: black;
         }
@@ -242,7 +242,10 @@
                     세일
                 </span>
         </div>
-        <div class="price" id="price" th:text="|${productDetail.getPrice()} 원|"></div>
+        <div style="display: flex;flex-direction : row; vertical-align: bottom;align-items : baseline; ">
+            <div class="price" th:text="|${productDetail.getPrice()}원|" style="text-decoration: line-through crimson; font-size: 15px;color: #aaaaaa; margin-bottom: 5px; margin-left: 0px; vertical-align: bottom "></div>
+            <div class="price" id="price" th:text="|${productDetail.getEventPrice()} 원|"></div>
+        </div>
         <div id="option-container"></div>
 
         <div class="input-group" id="count-div">
@@ -272,12 +275,18 @@
         <p th:text="|조회 수 =${productDetail.getViewCount()}|"></p>
         <h4>상품 상세 설명</h4>
         <p th:text="${productDetail.productDescription.getDescription()}"></p>
-        <div th:each="itemImg : ${productDetail.descriptionImages}">
-            <img th:src="@{${itemImg.path}}" >
+        <div>
+            <img th:src="@{${productDetail.repImg}}" th:alt="${productDetail.getName()}">
+            <div id ="additional-images" style="display: none">
+                <div  th:each="itemImg : ${productDetail.descriptionImages}">
+                    <img th:src="@{${itemImg.path}}" >
+                </div>
+            </div>
+            <button id="show-more-btn"  style="margin-bottom: 40px; width: 450px; height: 40px; border-color: #aaaaaa; background: ghostwhite">상품 정보 더보기</button>
         </div>
     </div>
     <div class="fixed-footer">
-        <button class="icon-button" >
+        <button class="icon-button" onclick="like()" >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
                 <path d="M8 3.314C12.438-1.248 23.534 4.735 8 15-7.534 4.735 3.562-1.248 8 3.314z"/>
             </svg>
@@ -459,6 +468,16 @@
             alert('옵션을 먼저 선택해 주십시오.')
         }
     }
+    document.getElementById("show-more-btn").addEventListener("click", function() {
+        var additionalImages = document.getElementById("additional-images");
+        if (additionalImages.style.display === "none") {
+            additionalImages.style.display = "block";
+            this.innerHTML = "상품 정보 접기";  // 버튼 텍스트 변경
+        } else {
+            additionalImages.style.display = "none";
+            this.innerHTML = "상품 정보 더보기";
+        }
+    });
 
     function goBack() {
         window.history.back();
@@ -467,6 +486,10 @@
     function goHome() {
         window.location = '/product/100';
         // 또는 window.history.go(-1); 를 사용할 수 있습니다.
+    }
+
+    function like(){
+        
     }
     function incrementCount() {
         const currentValue = parseInt(countElement.value, 10);

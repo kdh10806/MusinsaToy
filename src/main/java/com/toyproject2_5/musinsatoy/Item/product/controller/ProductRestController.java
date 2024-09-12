@@ -160,12 +160,10 @@ public class ProductRestController {
     @Operation()
     @GetMapping("/searchScroll")
     public ResponseEntity<?> searchKeyword(@ModelAttribute SearchProductDto searchProductDto) throws Exception {
-        System.out.println("asdfasdf"+searchProductDto.getKeyword());
 
         //SearchPageDto의 HasNextPageInfo에서 hasNextPage가 false이면 프론트에서 요청 보내지 않기로.
         SearchPageDto data =  productService.searchProduct(searchProductDto);
 
-        data.getProductList().forEach(System.out::println);
 
         return ResponseEntity.status(HttpStatus.OK).body(data);
     }

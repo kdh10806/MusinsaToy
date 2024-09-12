@@ -14,8 +14,8 @@
             <button id="close-btn">X</button>
         </div>
         <div class="chatbot-body">
-            <div id="chat-log">
-                <p>안녕하세요! 무엇을 도와드릴까요?</p>
+            <div id="chat-log" >
+                <p style ="background-color: #e0f7fa;">안녕하세요! 무엇을 도와드릴까요?</p>
             </div>
         </div>
         <div class="chatbot-footer">
@@ -143,10 +143,14 @@
 
                 // 서버로 비동기 요청 (예: /api/chatbot 엔드포인트에 POST 요청)
                 try {
-                    const response = await fetch('/product/chatbot', {
+                    const response = await fetch('http://127.0.0.1:5000/chatBot', {
+                        // mode: 'no-cors',
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ message: userMessage })
+                        // credentials : "same-origin",
+                        headers: {'Accept': 'application/json',
+                            'Content-Type': `application/json;charset=UTF-8`
+                        },
+                        body: data
                     });
 
                     if (response.ok) {
@@ -155,7 +159,7 @@
                         // 로딩 메시지를 지우고 응답 표시
                         botLoadingElem.remove();
                         const botMsgElem = document.createElement('p');
-                        botMsgElem.textContent = '챗봇 응답: ' + data.bot; // 서버에서 받아온 응답
+                        botMsgElem.innerHTML = '챗봇 응답: \n' + data.bot; // 서버에서 받아온 응답
                         botMsgElem.style.backgroundColor = '#e0f7fa';  // 챗봇의 응답 스타일
                         chatLog.appendChild(botMsgElem);
 

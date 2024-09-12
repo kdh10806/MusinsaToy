@@ -1,8 +1,12 @@
 package com.toyproject2_5.musinsatoy.CS.FAQ.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.Data;
 import java.util.Objects;
 
-
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@Data
 public class FaqDto {
     private Integer  faq_id;
     private String   faq_category_code;

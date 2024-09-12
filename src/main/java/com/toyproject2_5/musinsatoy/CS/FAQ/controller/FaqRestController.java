@@ -15,9 +15,13 @@ public class FaqRestController {
     private final FaqService faqService;
     //1. FAQ 리스트를 보내는 메서드 (챗봇 api)
     @GetMapping("/allApi")
+    @CrossOrigin(origins = "http://localhost:5000")
     public List<FaqDto> getAllFaqs(){
         try{
+            System.out.print("aaaaa");
             List<FaqDto> faqDtoList = faqService.selectAllAsc();
+            faqDtoList.forEach(System.out::println);
+
 
             return faqDtoList;
         } catch(Exception e){

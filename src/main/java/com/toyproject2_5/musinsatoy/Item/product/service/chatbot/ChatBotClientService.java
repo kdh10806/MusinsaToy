@@ -6,17 +6,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 //RestTemplate은 동기식으로 통신  - 응답을 받을 때 까지 blocking , deprecated
-//WebClient 는 Webflux 이해 필요 - webflux 까지 할 필요가 있나. 일단 하기.
+// 어짜피 같이쓰면 MVC로 동작한다고 함. -> 프론트에서 바로 플라스크로.
 public class ChatBotClientService {
 
+    //현재 프론트에서 바로 flask로 요청
     String url = "http://localhost:5000/";
     public Mono<?> chatBot(String message){
 
-        System.out.println(message);
 
         WebClient webClient = WebClient.builder()
                 .baseUrl(url)
-                .defaultCookie("cookieKey","cookieValue")
+//                .defaultCookie("cookieKey","cookieValue")
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
 
@@ -27,9 +27,8 @@ public class ChatBotClientService {
                 .retrieve()
                 .bodyToMono(ChatDto.class);
 
-        System.out.println(resMono);
 
-//        resMono.subscribe(System.out::println);// 사용시 요청이 2번 보내짐. - 비동기 처리된 Mono에 한 번더 요청 발생.
+//        resMono.subscribe(System.out::println);// 사용시 요청이 2번 보내짐.
 
 
         return resMono;

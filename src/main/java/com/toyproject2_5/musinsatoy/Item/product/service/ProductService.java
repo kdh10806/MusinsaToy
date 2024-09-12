@@ -1,10 +1,10 @@
 package com.toyproject2_5.musinsatoy.Item.product.service;
 
-import com.toyproject2_5.musinsatoy.Item.category.dao.CategoryDaoMysql;
+import com.toyproject2_5.musinsatoy.Item.category.dao.CategoryDao;
 import com.toyproject2_5.musinsatoy.Item.category.dto.CategoryHierarchyDto;
 import com.toyproject2_5.musinsatoy.Item.product.dao.OptionDao;
 import com.toyproject2_5.musinsatoy.Item.product.dao.ProductDao;
-import com.toyproject2_5.musinsatoy.Item.product.dao.stock.StockDaoMysql;
+import com.toyproject2_5.musinsatoy.Item.product.dao.stock.StockDao;
 import com.toyproject2_5.musinsatoy.Item.product.dto.*;
 import com.toyproject2_5.musinsatoy.Item.product.dto.option.OptionDBregisterDto;
 import com.toyproject2_5.musinsatoy.Item.product.dto.pagination.PageInfo;
@@ -23,7 +23,6 @@ import com.toyproject2_5.musinsatoy.Item.productDescriptionImg.dto.ProductDescri
 import com.toyproject2_5.musinsatoy.ETC.util.S3FileService;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.NotFoundException;
-import org.springdoc.core.parsers.ReturnTypeParser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +40,8 @@ public class ProductService {
     private final OptionDao optionDao;
 
     private final S3FileService s3FileService;
-    private final CategoryDaoMysql categoryDao;
-    private final StockDaoMysql stockDao;
+    private final CategoryDao categoryDao;
+    private final StockDao stockDao;
 
 
     //상품 등록.
@@ -151,6 +150,8 @@ public class ProductService {
         if(productDetailDto==null){
             throw new NotFoundException("해당 품목을 찾을 수 없습니다.");
         }
+
+
 
         //상품 설명 찾기.
         ProductDescriptionDto productDescriptionDto= productDescriptionDao.findByProductId(productId);

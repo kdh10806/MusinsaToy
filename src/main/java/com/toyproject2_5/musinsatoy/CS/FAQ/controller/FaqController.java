@@ -101,12 +101,14 @@ public class FaqController {
     public String list(Model m){
         try {
             List<FaqDto> faqDtoDescList = faqService.selectAllCatDesc();
+            faqDtoDescList.forEach(System.out::println);
 //            if(faqDtoDescList.isEmpty()) throw new Exception("Service.DescList() empty");
             m.addAttribute("faqDtoDescList", faqDtoDescList);
         } catch(Exception e ) {
             e.printStackTrace();
             m.addAttribute("msg", "LIST_ERR");
         }
+
         return "FAQ/list";
     }
 

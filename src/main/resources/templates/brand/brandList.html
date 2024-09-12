@@ -69,8 +69,8 @@
 <div layout:fragment="content">
     <div class="container">
         <h1 class="text-center mb-4">브랜드 목록</h1>
-        <div class="row">
-            <div class="col-md-4 col-lg-4 brand-item" th:each="brand : ${brands}">
+        <div class="flex-column">
+            <div class="col-md-4 col-lg-4 brand-item" style="min-width: 620px " th:each="brand : ${brands}">
                 <a th:href="@{/brand/{id}(id=${brand.brandId})}" class="card brand-card" style="text-decoration-line: none; color: black ">
                     <img th:src="@{${brand.img}}" alt="브랜드 이미지" class="card-img-top brand-img">
                     <div class="card-body text-center">

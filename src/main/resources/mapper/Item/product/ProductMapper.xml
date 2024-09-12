@@ -170,7 +170,7 @@
         ON p.brand_id = b.brand_id
         <where>
             <if test="cursorProductId != null">
-                p.product id<![CDATA[ < ]]> #{cursorProductId}
+                p.product_id<![CDATA[ < ]]> #{cursorProductId}
             </if>
             <if test ="keyword != null">
                 AND p.name LIKE CONCAT('%', #{keyword},'%')

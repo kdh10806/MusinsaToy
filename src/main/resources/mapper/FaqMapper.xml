@@ -10,9 +10,9 @@
 <!--read-->
     <!--모든데이터select(API)-->
     <select id="selectAllAsc" resultType="com.toyproject2_5.musinsatoy.CS.FAQ.dto.FaqDto">
-        select faq_id, faq_category_code, faq_subcategory_id, faq_title, faq_content, create_datetime, modify_datetime,
+        select faq_id as faq_id, faq_category_code as faq_category_code, faq_subcategory_id, faq_title, faq_content, create_datetime, modify_datetime,
             writer, modifier, is_post
-        from FAQ
+        from faq
         order by faq_id asc
     </select>
     <!--id로 해당 데이터 가져오기-->

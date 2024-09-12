@@ -324,16 +324,25 @@ public class ServiceTest {
 
     // option generator
     private static List<SalesOrderProductOption> generateRandomOptions(String productId) {
-        int optionsSize = (int) (Math.random() * 2) + 1;
+//        int optionsSize = (int) (Math.random() * 2) + 1;
         List<SalesOrderProductOption> options = new ArrayList<>();
+        SalesOrderProductOption option = new SalesOrderProductOption();
 
-        for (int i = 0; i < optionsSize; i++) {
-            SalesOrderProductOption option = new SalesOrderProductOption();
+        Random random = new Random();
+        if(random.nextBoolean()) {
             option.setProductId(productId);
             option.setOptionId("test");
-            option.setOptionCategory(randomElement(new String[]{"사이즈", "컬러"}));
-            option.setOptionName(randomElement(option.getOptionCategory().equals("사이즈") ? SIZES : COLORS));
-            option.setOptionDepth(Integer.toString(i));
+            option.setOptionCategory("사이즈");
+            option.setOptionName(randomElement(SIZES));
+            option.setOptionDepth("0");
+            options.add(option);
+        }
+        if(random.nextBoolean()) {
+            option.setProductId(productId);
+            option.setOptionId("test");
+            option.setOptionCategory("컬러");
+            option.setOptionName(randomElement(COLORS));
+            option.setOptionDepth("1");
             options.add(option);
         }
         return options;

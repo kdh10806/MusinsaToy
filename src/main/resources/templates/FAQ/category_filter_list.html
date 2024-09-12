@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <title>FAQ</title>
     <style>
+        table{
+            width:1000px;
+            border-collapse: collapse;
+        }
+        /* 각 열의 너비 */
+        th:nth-child(1), td:nth-child(1) { width: 10%; } /* 번호 열 */
+        th:nth-child(2), td:nth-child(2) { width: 10%; } /* 문의유형 열 */
+        th:nth-child(3), td:nth-child(3) { width: 45%; } /* 제목 열 */
+        th:nth-child(4), td:nth-child(4) { width: 15%; } /* 작성자 열 */
+        th:nth-child(5), td:nth-child(5) { width: 20%; } /* 작성일 열 */
         table, tr, td, th {
             border: 1px solid black;
             border-collapse: collapse;
